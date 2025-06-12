@@ -11,9 +11,13 @@ cat $HOME/.zshrc
 export PATH="$HOME/.local/bin:$PATH"
 
 # Install Trivy
-wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
-sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
-rm trivy_0.18.3_Linux-64bit.deb
+export TRIVY_VERSION=0.63.0
+wget https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.deb
+sudo dpkg -i trivy_${TRIVY_VERSION}_Linux-64bit.deb
+rm trivy_${TRIVY_VERSION}_Linux-64bit.deb
 
 # Install Trivy plugins
 trivy plugin install mcp
+
+# Install CVE Search
+cd mcp_servers/cve-search_mcp && uv sync

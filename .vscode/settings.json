@@ -11,7 +11,7 @@
                 "command": "uv",
                 "args": [
                     "--directory",
-                    "mcp_servers/cve-search_mcp",
+                    "/workspaces/ai_generated_vex/mcp_servers/cve-search_mcp",
                     "run",
                     "main.py"
                 ],
