@@ -138,10 +138,6 @@ git submodule update
 
 ## MCP Servers
 
-- Open the command palette
-- Search for "Preferences: Open User Settings (JSON)"
-- Add below section
-
 ```json
 "mcp": {
     "servers": {
