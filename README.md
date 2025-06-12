@@ -167,3 +167,4 @@ git submodule update
   - https://github.com/aquasecurity/trivy-mcp/blob/main/docs/ide/vscode.md
 - https://github.com/roadwy/cve-search_mcp
 - https://github.com/marcoeg/mcp-nvd
+- https://github.com/fportantier/vulpy
