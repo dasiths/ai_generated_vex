@@ -1,21 +1,26 @@
 {
     "servers": {
         "Trivy MCP": {
+            "type": "stdio",
             "command": "trivy",
             "args": [
                 "mcp"
             ]
         },
+        "Trivy MCP SSE": {
+            "type": "sse",
+            "url": "http://localhost:8080/sse",
+
+        },
         "cve-search_mcp": {
+            "type": "stdio",
             "command": "uv",
             "args": [
                 "--directory",
                 "/workspaces/ai_generated_vex/mcp_servers/cve-search_mcp",
                 "run",
                 "main.py"
-            ],
-            "disabled": false,
-            "autoApprove": []
+            ]
         }
     }
 }

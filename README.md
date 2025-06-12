@@ -162,6 +162,10 @@ git submodule update
 }
 ```
 
+## Issues
+- https://github.com/microsoft/vscode/issues/243687#issuecomment-2734934398
+- Run Trivy as SSE: `trivy mcp --transport sse --port 8080`
+
 ## Links
 - https://github.com/aquasecurity/trivy-mcp
   - https://github.com/aquasecurity/trivy-mcp/blob/main/docs/ide/vscode.md
