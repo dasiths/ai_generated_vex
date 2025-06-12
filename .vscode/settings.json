@@ -1,0 +1,23 @@
+{
+    "mcp": {
+        "servers": {
+            "Trivy MCP": {
+                "command": "trivy",
+                "args": [
+                    "mcp"
+                ]
+            },
+            "cve-search_mcp": {
+                "command": "uv",
+                "args": [
+                    "--directory",
+                    "mcp_servers/cve-search_mcp",
+                    "run",
+                    "main.py"
+                ],
+                "disabled": false,
+                "autoApprove": []
+            }
+        }
+    }
+}

@@ -129,5 +129,45 @@ The system will automatically generate detailed VEX documents that include:
 - **Compliance Ready**: Generates industry-standard VEX documents for supply chain transparency
 - **Contextual Analysis**: Understands how vulnerabilities apply to your specific codebase and deployment
 
+## After cloning
+
+```bash
+git submodule init
+git submodule update
+```
+
+## MCP Servers
+
+- Open the command palette
+- Search for "Preferences: Open User Settings (JSON)"
+- Add below section
+
+```json
+"mcp": {
+    "servers": {
+        "Trivy MCP": {
+            "command": "trivy",
+            "args": [
+                "mcp"
+            ]
+        },
+        "cve-search_mcp": {
+            "command": "uv",
+            "args": [
+                "--directory",
+                "mcp_servers/cve-search_mcp",
+                "run",
+                "main.py"
+            ],
+            "disabled": false,
+            "autoApprove": []
+        }
+    }
+}
+```
+
 ## Links
 - https://github.com/aquasecurity/trivy-mcp
+  - https://github.com/aquasecurity/trivy-mcp/blob/main/docs/ide/vscode.md
+- https://github.com/roadwy/cve-search_mcp
+- https://github.com/marcoeg/mcp-nvd
