@@ -22,7 +22,6 @@ rm trivy_${TRIVY_VERSION}_Linux-64bit.deb
 
 # Install Trivy plugins
 trivy plugin install mcp
-bash -c "nohup trivy mcp --transport sse --port 8080 > trivy.log 2>&1 &"
 
 # Install CVE Search
 cd mcp_servers/cve-search_mcp && uv sync
