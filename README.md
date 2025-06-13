@@ -1,117 +1,154 @@
-# AI-Powered Security Scanning with VEX Generation
+# Security Vulnerability Assessment with VEX Generation
 
-## What is VEX and Why It Matters
+## What is VEX?
 
-**VEX (Vulnerability Exploitability eXchange)** is a standardized format for communicating the actual security impact of vulnerabilities in specific products or deployments. Unlike traditional vulnerability lists that simply enumerate CVEs, VEX documents provide contextual analysis of whether vulnerabilities are actually exploitable in your environment.
+**VEX (Vulnerability Exploitability eXchange)** tells you whether a vulnerability actually matters in your specific environment. Rather than just listing CVEs, VEX provides context about real exploitability.
 
 **Key VEX Statuses:**
-- **Not Affected**: The vulnerable code exists but isn't reachable or used
-- **Affected**: The vulnerability can be exploited in this specific context
+- **Not Affected**: Vulnerability exists but can't be exploited in your environment
+- **Affected**: Vulnerability can be exploited in your environment
 - **Fixed**: A patch has been applied
-- **Under Investigation**: Status requires further analysis
+- **Under Investigation**: Still analyzing
 
-**Why VEX is Critical:**
-- **Reduces Alert Fatigue**: Distinguishes between theoretical and actual risks
-- **Supply Chain Transparency**: Enables informed decisions about third-party components  
-- **Regulatory Compliance**: Emerging requirements mandate VEX for government and enterprise software
-- **Contextual Intelligence**: Shows *why* a vulnerability does or doesn't matter in your specific case
-
-Traditional vulnerability scanning tells you "CVE-X exists in package Y." VEX tells you "CVE-X exists but cannot be exploited because we don't use the vulnerable function and have network controls that prevent the attack."
+**Benefits:**
+- Reduces false alarms
+- Improves supply chain transparency
+- Meets regulatory requirements
+- Provides actionable security intelligence
 
 ## Overview
 
-We will implement an automated security scanning system using GitHub Copilot as an intelligent agent orchestrating two MCP (Model Context Protocol) servers to generate comprehensive VEX documents with contextual vulnerability analysis.
+This project provides tools and guidelines for:
+1. Finding security vulnerabilities in your code
+2. Determining if they're actually exploitable
+3. Generating standardized VEX documents
 
-## Architecture
+For complete documentation, see our [detailed instructions](.github/instructions/vex.instructions.md).
 
-**GitHub Copilot Agent** + **Trivy MCP Server** + **CVE Database MCP Server** → **VEX Document**
+## How It Works
 
-- **Trivy MCP Server**: Scans codebases for vulnerabilities in dependencies, containers, and infrastructure
-- **CVE Database MCP Server**: Provides detailed vulnerability intelligence and exploitability data
-- **GitHub Copilot Agent**: Analyzes scan results in code context and generates intelligent VEX documents
+Our approach uses three simple steps:
 
-## Workflow
+1. **Scan**: Use Trivy to automatically find vulnerabilities
+2. **Analyze**: Review code manually to identify security issues
+3. **Document**: Generate VEX reports showing what matters and why
 
-### 1. Initial Scan
-**Agent Action**: Trigger vulnerability scan
+## Quick Start Guide with GitHub Copilot
+
+This entire workflow is powered by GitHub Copilot in Agent mode, which orchestrates the security assessment process for you.
+
+### Step 1: Start a Copilot Chat Session
+In VS Code, start a GitHub Copilot Chat session and use the prompt below to begin the security assessment:
+
 ```
-Scan the current repository using Trivy to identify all vulnerabilities in dependencies, container images, and infrastructure as code files. Focus on HIGH and CRITICAL severity findings.
-```
-
-### 2. Vulnerability Analysis
-**Agent Action**: For each vulnerability found, query CVE database
-```
-For CVE-2023-45857 found in axios@0.21.1:
-- Get detailed CVE information including CVSS score, attack vectors, and known exploits
-- Check if there are any proof-of-concept exploits available
-- Retrieve vendor advisories and patch information
-```
-
-### 3. Code Context Analysis  
-**Agent Action**: Analyze how vulnerabilities apply to the specific codebase
-```
-Analyze the codebase to determine if CVE-2023-45857 affects our application:
-- Find all usage of axios redirect functionality
-- Check if user input can control redirect URLs
-- Examine network configurations and egress restrictions
-- Determine if vulnerable code paths are reachable
-- Provide confidence score for exploitability assessment
+Perform a security review of the src/vulpy folder and generate a VEX document.
 ```
 
-### 4. VEX Status Determination
-**Agent Action**: Classify vulnerability status with justification
+### Step 2: GitHub Copilot Agent Process
+
+Copilot Agent will automatically:
+
+1. **Scan for Vulnerabilities**
+   - Use the Trivy MCP server to identify potential issues
+   - Analyze dependencies, code, and configurations
+
+2. **Review Code for Security Issues**
+   - Examine input validation, authentication, encryption
+   - Check for common vulnerabilities like XSS, SQL injection
+   - Analyze error handling and third-party dependencies
+
+3. **Analyze Exploitability**
+   - Determine if vulnerable code is actually reachable
+   - Check if attack vectors exist in your environment
+   - Evaluate mitigating controls and security measures
+
+4. **Generate VEX Document**
+   - Create a standardized report explaining which vulnerabilities matter
+   - Provide justifications for each vulnerability status
+   - Store the document in the proper location
+
+You can simply chat with GitHub Copilot while it handles the complex assessment process for you.
+
+For detailed guidance on each step, consult our [comprehensive assessment guide](.github/instructions/vex.instructions.md).
+
+## VEX Document Example
+
+Here's a simplified example of a VEX document:
+
+```json
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "author": "Security Team",
+  "timestamp": "2025-06-13T14:00:00Z",
+  "product": {
+    "@id": "example-app-v1.0"
+  },
+  "statements": [
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-1234",
+        "name": "Cross-Site Scripting in Login Form"
+      },
+      "status": "not_affected",
+      "justification": "Our application implements proper input sanitization"
+    }
+  ]
+}
 ```
-Based on code analysis, classify CVE-2023-45857 status:
-- not_affected: If vulnerable code isn't used or reachable
-- affected: If vulnerability can be exploited in our context  
-- under_investigation: If analysis is inconclusive
-- fixed: If patched version is already deployed
 
-Provide detailed justification for the classification including:
-- Specific code paths analyzed
-- Security controls that mitigate risk
-- Recommended actions (update, monitor, or ignore)
+## Documentation
+
+We generate two types of documents:
+
+1. **VEX Document**: `docs/security/vex/YYYYMMDD-<product>-vex.json`
+2. **Security Report**: `docs/security/YYYYMMDD-<title>-security-report.md`
+
+For format details and examples, see the [complete documentation](.github/instructions/vex.instructions.md#reporting-and-documentation).
+
+## Tools Included
+
+This repository includes MCP (Model Context Protocol) servers that GitHub Copilot Agent interfaces with:
+
+- **Trivy MCP Server**: Fast vulnerability scanner for code, dependencies, and containers
+- **CVE-Search MCP**: Access to vulnerability intelligence
+- **VEX Templates**: Ready-to-use templates for VEX document generation
+- **Security Checklists**: Simplified guides for code review via GitHub Copilot
+
+## Getting Started
+
+### Prerequisites
+Before using GitHub Copilot for security assessment:
+
+1. Ensure you have GitHub Copilot Chat enabled in VS Code
+2. Start the Trivy server:
+   ```bash
+   cd mcp_servers/trivy
+   ./start-trivy-server.sh
+   ```
+
+### Sample Prompts for GitHub Copilot
+Simply ask Copilot to conduct the security assessment:
+
+```
+Scan src/vulpy for vulnerabilities and generate a VEX document
 ```
 
-### 5. VEX Document Generation
-**Agent Action**: Generate compliant VEX document
+Or be more specific:
+
 ```
-Generate a complete VEX document including:
-- Product identification and metadata
-- All vulnerability findings with detailed analysis
-- Justifications for each vulnerability status
-- Agent confidence scores and analysis metadata
-- Recommendations for remediation or monitoring
+Analyze the authentication system in src/vulpy/bad/mod_user.py for security issues
 ```
 
-## Sample Agent Prompts
+For a complete checklist and detailed instructions, refer to our [comprehensive guide](.github/instructions/vex.instructions.md#final-verification-checklist).
+- [ ] Exploitability analysis conducted for all identified CVEs
+- [ ] VEX statuses assigned based on thorough contextual analysis
+- [ ] Severity levels assigned based on standardized criteria
+- [ ] Remediation plans developed for all identified issues
+- [ ] High and critical severity vulnerabilities addressed
+- [ ] No new vulnerabilities introduced by remediation efforts
+- [ ] VEX document generated in standardized format
+- [ ] Security assessment report completed and stored appropriately
 
-### Comprehensive Analysis Prompt
-```
-You are a security analysis agent. Using the Trivy MCP server, scan this repository for vulnerabilities. For each HIGH or CRITICAL finding:
-
-1. Use the CVE Database MCP server to get detailed vulnerability information
-2. Analyze the codebase to determine actual exploitability 
-3. Consider our deployment environment and security controls
-4. Classify the vulnerability status (affected/not_affected/under_investigation)
-5. Provide confidence scores and detailed justifications
-
-Generate a complete VEX document with your analysis.
-```
-
-### Code-Specific Analysis Prompt  
-```
-I found CVE-2023-26136 in tough-cookie@4.0.0. This is a prototype pollution vulnerability.
-
-Analyze our codebase to determine:
-- Where and how tough-cookie is used
-- What user input flows into cookie parsing functions  
-- Whether prototype pollution could be triggered
-- What security controls might prevent exploitation
-- Recommended remediation actions
-
-Provide your analysis with confidence score.
-```
 
 ## Expected Output
 
@@ -119,8 +156,6 @@ The system will automatically generate detailed VEX documents that include:
 - Standard-compliant vulnerability disclosures
 - AI-powered exploitability assessments with justifications
 - Context-aware recommendations based on actual code usage
-- Confidence scores for each analysis decision
-- Comprehensive metadata for audit and compliance purposes
 
 ## Benefits
 
