@@ -1,0 +1,190 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://example.org/security/vex/20250613-vulpy-vex",
+  "author": "Security Assessment Team",
+  "timestamp": "2025-06-13T15:30:00Z",
+  "version": "1.0",
+  "tooling": "Security Assessment Framework v1.0",
+  "product": {
+    "@id": "vulpy-application",
+    "identifiers": {
+      "purl": "pkg:github/vulpy/vulpy@1.0"
+    },
+    "supplier": "Vulpy Project"
+  },
+  "statements": [
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-30861",
+        "name": "CVE-2023-30861",
+        "description": "Flask vulnerable to possible disclosure of permanent session cookie due to missing Vary: Cookie header"
+      },
+      "products": ["vulpy-application"],
+      "status": "affected",
+      "timestamp": "2025-06-13T15:30:00Z",
+      "justification": "The application uses Flask 2.1.1 and implements permanent sessions, making it vulnerable to this CVE",
+      "impact_statement": "May allow session hijacking and unauthorized access to user accounts",
+      "remediation": "Upgrade Flask to version 2.3.2 or 2.2.5",
+      "evidence": [
+        {
+          "type": "code_analysis",
+          "description": "Application uses Flask 2.1.1 as confirmed by requirements.txt"
+        },
+        {
+          "type": "environmental_analysis",
+          "description": "Application is deployed behind a caching proxy that could be affected"
+        }
+      ]
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2022-29217",
+        "name": "CVE-2022-29217",
+        "description": "PyJWT vulnerable to algorithm confusion attacks"
+      },
+      "products": ["vulpy-application"],
+      "status": "affected",
+      "timestamp": "2025-06-13T15:30:00Z",
+      "justification": "Application uses PyJWT 2.0.0 without explicit algorithm specification",
+      "impact_statement": "May allow attackers to forge tokens and gain unauthorized access",
+      "remediation": "Upgrade PyJWT to 2.4.0 or newer and specify algorithms explicitly",
+      "evidence": [
+        {
+          "type": "code_analysis",
+          "description": "Application uses PyJWT 2.0.0 as specified in requirements.txt"
+        }
+      ]
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-38325",
+        "name": "CVE-2023-38325",
+        "description": "Cryptography package mishandles SSH certificates"
+      },
+      "products": ["vulpy-application"],
+      "status": "not_affected",
+      "timestamp": "2025-06-13T15:30:00Z",
+      "justification": "The application does not use SSH certificate functionality from the cryptography package",
+      "evidence": [
+        {
+          "type": "code_analysis",
+          "description": "No usage of SSH certificates found in the codebase"
+        }
+      ]
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-50782",
+        "name": "CVE-2023-50782",
+        "description": "Vulnerability in cryptography package"
+      },
+      "products": ["vulpy-application"],
+      "status": "affected",
+      "timestamp": "2025-06-13T15:30:00Z",
+      "justification": "Application uses affected version of the cryptography package",
+      "impact_statement": "May impact cryptographic operations in the application",
+      "remediation": "Upgrade cryptography to version 42.0.0 or newer",
+      "evidence": [
+        {
+          "type": "code_analysis",
+          "description": "Application uses cryptography 41.0.0 as specified in requirements.txt"
+        }
+      ]
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-26130",
+        "name": "CVE-2024-26130",
+        "description": "Vulnerability in cryptography package"
+      },
+      "products": ["vulpy-application"],
+      "status": "affected",
+      "timestamp": "2025-06-13T15:30:00Z",
+      "justification": "Application uses affected version of the cryptography package",
+      "impact_statement": "May impact cryptographic operations in the application",
+      "remediation": "Upgrade cryptography to version 42.0.4 or newer",
+      "evidence": [
+        {
+          "type": "code_analysis",
+          "description": "Application uses cryptography 41.0.0 as specified in requirements.txt"
+        }
+      ]
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2018-18074",
+        "name": "CVE-2018-18074",
+        "description": "Vulnerability in requests package"
+      },
+      "products": ["vulpy-application"],
+      "status": "affected",
+      "timestamp": "2025-06-13T15:30:00Z",
+      "justification": "Application uses requests 2.0.0 for API calls and proxying",
+      "impact_statement": "May allow attackers to exploit the application if it makes requests to malicious URLs",
+      "remediation": "Upgrade requests to version 2.20.0 or newer",
+      "evidence": [
+        {
+          "type": "code_analysis",
+          "description": "Application uses requests 2.0.0 as specified in requirements.txt"
+        }
+      ]
+    },
+    {
+      "vulnerability": {
+        "@id": "VULPY-SQL-INJ-001",
+        "name": "SQL Injection in User Authentication",
+        "description": "Application code contains multiple SQL injection vulnerabilities due to string concatenation in queries"
+      },
+      "products": ["vulpy-application"],
+      "status": "affected",
+      "timestamp": "2025-06-13T15:30:00Z",
+      "justification": "SQL queries in libuser.py directly concatenate user input into queries without parameterization",
+      "impact_statement": "Allows complete compromise of the database, authentication bypass, and unauthorized data access",
+      "remediation": "Replace string concatenation with parameterized queries using query parameters",
+      "evidence": [
+        {
+          "type": "code_analysis",
+          "description": "Found in libuser.py: functions login() and password_change() use string formatting in SQL queries"
+        }
+      ]
+    },
+    {
+      "vulnerability": {
+        "@id": "VULPY-XSS-001",
+        "name": "Cross-Site Scripting in Post Display",
+        "description": "Application renders user-supplied content without HTML escaping"
+      },
+      "products": ["vulpy-application"],
+      "status": "affected",
+      "timestamp": "2025-06-13T15:30:00Z",
+      "justification": "Template uses the '| safe' filter when displaying user content, disabling HTML escaping",
+      "impact_statement": "Allows injection of malicious JavaScript that executes in users' browsers",
+      "remediation": "Remove the '| safe' filter to enable automatic HTML escaping",
+      "evidence": [
+        {
+          "type": "code_analysis",
+          "description": "Found in templates/posts.view.html: uses the '| safe' filter when displaying post content"
+        }
+      ]
+    },
+    {
+      "vulnerability": {
+        "@id": "VULPY-SESS-001",
+        "name": "Insecure Session Management",
+        "description": "Application implements insecure session handling using only base64 encoding"
+      },
+      "products": ["vulpy-application"],
+      "status": "affected",
+      "timestamp": "2025-06-13T15:30:00Z",
+      "justification": "Session tokens are simply base64-encoded JSON with no encryption or signing",
+      "impact_statement": "Allows session forgery and impersonation of any user",
+      "remediation": "Implement Flask's built-in session management with a strong secret key",
+      "evidence": [
+        {
+          "type": "code_analysis",
+          "description": "Found in libsession.py: sessions are created using only base64 encoding of JSON data"
+        }
+      ]
+    }
+  ]
+}
