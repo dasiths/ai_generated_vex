@@ -164,6 +164,7 @@ git submodule update
 
 ## Issues
 - https://github.com/microsoft/vscode/issues/243687#issuecomment-2734934398
+- https://github.com/microsoft/vscode/issues/251308
 - Run Trivy as SSE: `trivy mcp --transport sse --port 8080`
 
 ## Links
