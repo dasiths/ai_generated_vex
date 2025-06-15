@@ -1,0 +1,214 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://ai-generated-vex/security/vex/20250615-example_report_002-vex",
+  "author": "Security Analysis Workflow",
+  "timestamp": "2025-06-15T00:00:00Z",
+  "version": "1.0",
+  "tooling": "Security Analysis Workflow v1.0 - Trivy + Manual Analysis",
+  "product": {
+    "@id": "example_report_002",
+    "identifiers": {
+      "git": "file:///workspaces/ai_generated_vex/src/vulpy"
+    },
+    "supplier": "vulpy project",
+    "name": "vulpy",
+    "version": "dev"
+  },
+  "statements": [
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-30861",
+        "name": "CVE-2023-30861",
+        "description": "Flask session cookie caching vulnerability when hosted behind caching proxy"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Flask sessions are not used in vulnerable configuration. The application uses custom session management (libsession.py) with base64-encoded cookies, not Flask's built-in session system. The specific conditions for exploitation (session.permanent=True, SESSION_REFRESH_EACH_REQUEST) are not met.",
+      "action_statement": "No action required. Application uses custom session implementation.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2022-29217",
+        "name": "CVE-2022-29217", 
+        "description": "PyJWT algorithm confusion vulnerability"
+      },
+      "products": ["example_report_002"],
+      "status": "affected",
+      "justification": "vulnerable_code_in_execute_path",
+      "impact_statement": "PyJWT is used in good/libapi.py with explicit algorithm specification ['HS256'], but vulnerable version 2.0.0 is installed. Code uses jwt.decode(token, secret, algorithms=['HS256']) which is the correct secure pattern, but the vulnerable library version could still be exploited through algorithm confusion if an attacker can manipulate the algorithm field in JWT headers.",
+      "action_statement": "Update PyJWT to version 2.4.0 or later",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-38325",
+        "name": "CVE-2023-38325",
+        "description": "Cryptography RSA PKCS#1 v1.5 signature verification vulnerability"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected", 
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "The cryptography library is used for RSA operations, but analysis shows no PKCS#1 v1.5 signature verification code paths. Application uses OAEP padding for encryption (rsa-encrypt.py) which is not affected by this vulnerability.",
+      "action_statement": "No immediate action required for this CVE, but consider updating cryptography library",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-50782",
+        "name": "CVE-2023-50782",
+        "description": "Cryptography Bleichenbacher timing attack on RSA decryption"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path", 
+      "impact_statement": "Application uses OAEP padding in RSA operations (utils/rsa-encrypt.py, utils/rsa-decrypt.py) which provides protection against Bleichenbacher attacks. No bare RSA decryption without proper padding found.",
+      "action_statement": "No immediate action required for this CVE",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-26130", 
+        "name": "CVE-2024-26130",
+        "description": "Cryptography NULL pointer dereference in PKCS#12 parsing"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_present",
+      "impact_statement": "No PKCS#12 certificate parsing code found in the application. Cryptography library is used for RSA, AES, and HMAC operations only.",
+      "action_statement": "No action required for this CVE",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2018-18074",
+        "name": "CVE-2018-18074", 
+        "description": "Requests library allows cookies in redirects to wrong host"
+      },
+      "products": ["example_report_002"],
+      "status": "affected",
+      "justification": "vulnerable_code_in_execute_path",
+      "impact_statement": "Requests library 2.0.0 is used in api_post.py and api_list.py for HTTP communication. The vulnerable version may leak authentication cookies through redirects. However, the application only makes requests to localhost (127.0.1.1:5000), limiting exposure.",
+      "action_statement": "Update requests library to version 2.20.0 or later",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-49083",
+        "name": "CVE-2023-49083",
+        "description": "Cryptography NULL pointer dereference in PKCS#7 parsing"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_present",
+      "impact_statement": "No PKCS#7 parsing code found in the application.",
+      "action_statement": "No action required for this CVE",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-0727",
+        "name": "CVE-2024-0727",
+        "description": "Cryptography NULL pointer dereference vulnerability"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Cryptography usage in application does not trigger vulnerable code paths.",
+      "action_statement": "No immediate action required for this CVE",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "GHSA-h4gh-qq45-vh27",
+        "name": "GHSA-h4gh-qq45-vh27",
+        "description": "Cryptography vulnerable to NULL-dereference when loading PKCS7 certificates"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_present",
+      "impact_statement": "No PKCS#7 certificate loading code found in application.",
+      "action_statement": "No action required",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2014-1829",
+        "name": "CVE-2014-1829",
+        "description": "Requests library bundled CA certificates not properly validated"
+      },
+      "products": ["example_report_002"],
+      "status": "affected",
+      "justification": "vulnerable_code_in_execute_path",
+      "impact_statement": "Requests 2.0.0 is used for HTTP communication, but application only makes requests to localhost. The CA validation issue affects HTTPS connections to external hosts, which are not present in current code.",
+      "action_statement": "Update requests library, though risk is low due to localhost-only usage",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2014-1830",
+        "name": "CVE-2014-1830",
+        "description": "Requests library certificate hostname verification bypass"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application only makes HTTP requests to localhost, not HTTPS requests where hostname verification would be relevant.",
+      "action_statement": "No immediate action required for this CVE",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-35195",
+        "name": "CVE-2024-35195",
+        "description": "Requests library improper handling of HTTP proxies"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "No proxy usage found in application HTTP requests.",
+      "action_statement": "No action required for this CVE",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-47081",
+        "name": "CVE-2024-47081", 
+        "description": "Requests library session cookies leak through redirect"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application does not use requests.Session() objects or cookie handling that would be affected by this vulnerability.",
+      "action_statement": "No action required for this CVE",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "GHSA-jm77-qphf-c4w8",
+        "name": "GHSA-jm77-qphf-c4w8",
+        "description": "Cryptography vulnerable to denial of service via DTLSv1 handshake"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_present",
+      "impact_statement": "No DTLS functionality found in application.",
+      "action_statement": "No action required",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "GHSA-v8gr-m533-ghj9",
+        "name": "GHSA-v8gr-m533-ghj9",
+        "description": "Cryptography vulnerable to denial of service attack"
+      },
+      "products": ["example_report_002"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Cryptography usage patterns in application do not trigger vulnerable code paths.",
+      "action_statement": "No immediate action required",
+      "timestamp": "2025-06-15T00:00:00Z"
+    }
+  ]
+}
