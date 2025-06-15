@@ -50,6 +50,7 @@ This step requires the highest level of technical rigor. Each CVE must be analyz
 
 **Process**:
 1. **CVE Research**: Fetch comprehensive details from NVD, security advisories, and exploit databases
+   - **NVD Lookup**: Use https://nvd.nist.gov/vuln/detail/{CVE-ID} to retrieve official CVE details
    - Vulnerability mechanism and root cause
    - Attack prerequisites and conditions
    - Known exploit techniques and proof-of-concepts
