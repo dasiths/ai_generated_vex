@@ -25,6 +25,9 @@ This project provides tools and guidelines for:
 
 For complete documentation, see our [detailed instructions](.github/instructions/vex.instructions.md).
 
+## Example Security Reports
+See example [security reports](docs/security/reports/example_report_001) here.
+
 ## How It Works
 
 Our approach uses three simple steps:

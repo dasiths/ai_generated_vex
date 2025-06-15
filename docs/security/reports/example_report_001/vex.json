@@ -1,0 +1,214 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://ai-generated-vex/security/vex/20250615-example_report_001-vex",
+  "author": "GitHub Copilot Security Analysis Workflow",
+  "timestamp": "2025-06-15T00:00:00Z",
+  "version": "1.0",
+  "tooling": "Security Analysis Workflow v1.0 - Trivy + Manual Analysis",
+  "product": {
+    "@id": "example_report_001",
+    "identifiers": {
+      "git": "https://github.com/ai-generated-vex/vulpy.git"
+    },
+    "supplier": "Security Analysis Team",
+    "name": "vulpy",
+    "version": "1.0.0"
+  },
+  "statements": [
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-30861",
+        "name": "CVE-2023-30861",
+        "description": "Flask before 2.2.5 and 2.3.x before 2.3.2 has a vulnerability where cookie values that are not properly quoted can lead to parsing issues."
+      },
+      "products": ["example_report_001"],
+      "status": "affected",
+      "justification": "component_present_in_code",
+      "impact_statement": "Flask is actively used for cookie handling in session management. Application uses cookies for session management with no additional mitigations observed. Attack complexity is low with no authentication required.",
+      "action_statement": "Update Flask to version 2.3.2 or later. Test session handling after update.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2022-29217",
+        "name": "CVE-2022-29217",
+        "description": "PyJWT before 2.4.0 allows attackers to submit a JWT token with a modified header value specifying 'None' as the signature verification algorithm, leading to authentication bypass."
+      },
+      "products": ["example_report_001"],
+      "status": "under_investigation",
+      "justification": "component_present_in_code",
+      "impact_statement": "PyJWT is included in dependencies but usage not confirmed in examined code. If used, could lead to complete authentication bypass with high impact on confidentiality and integrity.",
+      "action_statement": "Update PyJWT to version 2.4.0 or later. Review all JWT usage and test authentication flows.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-38325",
+        "name": "CVE-2023-38325",
+        "description": "The cryptography package before 41.0.2 has a vulnerability in PKCS7 padding oracle attacks."
+      },
+      "products": ["example_report_001"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application uses cryptography library for Scrypt password hashing only. PKCS7 functionality is not used in any observed code paths.",
+      "action_statement": "Update cryptography to version 41.0.2 or later as a precautionary measure. Verify no PKCS7 usage exists.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-50782",
+        "name": "CVE-2023-50782",
+        "description": "Cryptography package vulnerability affecting PKCS12 functionality."
+      },
+      "products": ["example_report_001"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application does not use PKCS12 functionality. Only Scrypt password hashing is implemented using the cryptography library.",
+      "action_statement": "Update cryptography to version 42.0.0 or later as a precautionary measure.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-26130",
+        "name": "CVE-2024-26130",
+        "description": "Cryptography package vulnerability in certificate verification."
+      },
+      "products": ["example_report_001"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application does not use certificate verification functionality. Only Scrypt password hashing is implemented.",
+      "action_statement": "Update cryptography to version 42.0.4 or later as a precautionary measure.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2018-18074",
+        "name": "CVE-2018-18074",
+        "description": "The Requests package before 2.20.0 sends an HTTP authorization header to an http URI upon receiving a same-hostname https-to-http redirect."
+      },
+      "products": ["example_report_001"],
+      "status": "under_investigation",
+      "justification": "component_present_in_code",
+      "impact_statement": "Requests library is included in dependencies but usage not observed in examined code. If used with authentication headers, could lead to credential disclosure.",
+      "action_statement": "Update requests to version 2.20.0 or later. Review all HTTP requests in application to verify usage.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2023-49083",
+        "name": "CVE-2023-49083",
+        "description": "Cryptography package vulnerability in OpenSSL backend."
+      },
+      "products": ["example_report_001"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application uses only Scrypt functionality which is not affected by this OpenSSL backend vulnerability.",
+      "action_statement": "Update cryptography to version 41.0.6 or later as a precautionary measure.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-0727",
+        "name": "CVE-2024-0727",
+        "description": "OpenSSL vulnerability affecting cryptography package."
+      },
+      "products": ["example_report_001"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application does not use OpenSSL functionality directly. Only Scrypt password hashing is implemented.",
+      "action_statement": "Update cryptography to version 42.0.2 or later as a precautionary measure.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "GHSA-h4gh-qq45-vh27",
+        "name": "GHSA-h4gh-qq45-vh27",
+        "description": "Cryptography package vulnerability in certificate handling."
+      },
+      "products": ["example_report_001"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application does not use certificate handling functionality. Only Scrypt password hashing is implemented.",
+      "action_statement": "Update cryptography to version 43.0.1 or later as a precautionary measure.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2014-1829",
+        "name": "CVE-2014-1829",
+        "description": "Requests package cookie handling vulnerability."
+      },
+      "products": ["example_report_001"],
+      "status": "under_investigation",
+      "justification": "component_present_in_code",
+      "impact_statement": "Requests library is included in dependencies but usage not confirmed. If used, could affect cookie handling security.",
+      "action_statement": "Update requests to version 2.3.0 or later. Review all HTTP requests in application.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2014-1830",
+        "name": "CVE-2014-1830",
+        "description": "Requests package certificate verification vulnerability."
+      },
+      "products": ["example_report_001"],
+      "status": "under_investigation",
+      "justification": "component_present_in_code",
+      "impact_statement": "Requests library is included in dependencies but usage not confirmed. If used with HTTPS, could affect certificate validation.",
+      "action_statement": "Update requests to version 2.3.0 or later. Review all HTTPS requests in application.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-35195",
+        "name": "CVE-2024-35195",
+        "description": "Requests package HTTP header injection vulnerability."
+      },
+      "products": ["example_report_001"],
+      "status": "under_investigation",
+      "justification": "component_present_in_code",
+      "impact_statement": "Requests library is included in dependencies but usage not confirmed. If used, could allow HTTP header injection attacks.",
+      "action_statement": "Update requests to version 2.32.0 or later. Review all HTTP requests for header injection vulnerabilities.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-47081",
+        "name": "CVE-2024-47081",
+        "description": "Requests package redirect handling vulnerability."
+      },
+      "products": ["example_report_001"],
+      "status": "under_investigation",
+      "justification": "component_present_in_code",
+      "impact_statement": "Requests library is included in dependencies but usage not confirmed. If used, could affect redirect handling security.",
+      "action_statement": "Update requests to version 2.32.4 or later. Review all HTTP requests for redirect vulnerabilities.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "GHSA-jm77-qphf-c4w8",
+        "name": "GHSA-jm77-qphf-c4w8",
+        "description": "Cryptography package low-severity vulnerability."
+      },
+      "products": ["example_report_001"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application uses only Scrypt functionality which is not affected by this vulnerability.",
+      "action_statement": "Update cryptography to version 41.0.3 or later as a precautionary measure.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    },
+    {
+      "vulnerability": {
+        "@id": "GHSA-v8gr-m533-ghj9",
+        "name": "GHSA-v8gr-m533-ghj9",
+        "description": "Cryptography package low-severity vulnerability."
+      },
+      "products": ["example_report_001"],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Application uses only Scrypt functionality which is not affected by this vulnerability.",
+      "action_statement": "Update cryptography to version 41.0.4 or later as a precautionary measure.",
+      "timestamp": "2025-06-15T00:00:00Z"
+    }
+  ]
+}
