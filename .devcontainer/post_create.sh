@@ -14,14 +14,16 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$bashrc_path"
 cat $HOME/.zshrc
 export PATH="$HOME/.local/bin:$PATH"
 
-# Install Trivy
-export TRIVY_VERSION=0.63.0
-wget https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.deb
-sudo dpkg -i trivy_${TRIVY_VERSION}_Linux-64bit.deb
-rm trivy_${TRIVY_VERSION}_Linux-64bit.deb
-
 # Install Trivy plugins
 trivy plugin install mcp
 
 # Install CVE Search
 cd mcp_servers/cve-search_mcp && uv sync
+
+# Install vexctl
+go install github.com/openvex/vexctl@latest
+
+# Install vexdoc MCP Server
+npm install -g https://github.com/rosstaco/vexdoc-mcp/releases/download/0.0.1-pre-release/vexdoc-mcp-0.0.1.tgz
+
+echo "✅ Post-create script completed successfully."
