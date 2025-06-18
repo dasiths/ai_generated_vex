@@ -34,7 +34,7 @@ This automated workflow generates three comprehensive security deliverables:
 
 1. **📄 Summary** - Executive overview of critical findings
 2. **📋 Security Report** - Detailed technical analysis with remediation guidance  
-3. **🔒 VEX Document** - Industry-standard exploitability determinations
+3. **🔒 VEX Document** - Industry-standard OpenVEX-compliant exploitability determinations generated using the VEX Document MCP Server
 
 **📁 Example Reports**: [docs/security/reports/](docs/security/reports/) | **📖 Full Instructions**: [.github/instructions/vex.instructions.md](.github/instructions/vex.instructions.md)
 
@@ -60,7 +60,7 @@ Systematic manual review discovering application-specific vulnerabilities beyond
 - Custom code security patterns
 
 ### 4. 📋 Comprehensive Documentation
-Generate three industry-standard deliverables with complete technical analysis and evidence-based conclusions.
+Generate three industry-standard deliverables with complete technical analysis and evidence-based conclusions. VEX documents are created using the VEX Document MCP Server to ensure OpenVEX compliance and standardized vulnerability communication.
 
 ## Quick Start
 
@@ -89,7 +89,7 @@ All deliverables automatically saved to: `docs/security/reports/[report-name]/`
 **🎯 Evidence-Based Analysis**: Every vulnerability determination backed by concrete technical proof and detailed reasoning  
 **🔍 Beyond CVE Scanning**: Discovers application-specific vulnerabilities through systematic OWASP Top 10 review  
 **📊 Risk-Based Prioritization**: Focus security resources on vulnerabilities that pose actual threat in your environment  
-**📋 Industry Standards**: OpenVEX-compliant documents enabling transparent vulnerability communication across teams and vendors  
+**📋 Industry Standards**: OpenVEX-compliant documents generated using the VEX Document MCP Server, enabling transparent vulnerability communication across teams and vendors  
 **🔬 Technical Rigor**: Exploitability analysis performed with penetration testing-level depth and documentation  
 **⚡ Automation with Intelligence**: Combines automated scanning tools with human-level security analysis reasoning
 
@@ -111,10 +111,21 @@ cd mcp_servers/trivy
   "mcp": {
     "servers": {
       "Trivy MCP": {
+        "type": "stdio",
         "command": "trivy",
         "args": ["mcp"]
       },
+      "Trivy MCP SSE": {
+        "type": "sse",
+        "url": "http://localhost:8080/sse"
+      },
+      "vexdoc-mcp": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["vexdoc-mcp"]
+      },
       "cve-search_mcp": {
+        "type": "stdio",
         "command": "uv",
         "args": ["--directory", "mcp_servers/cve-search_mcp", "run", "main.py"]
       }
@@ -131,5 +142,6 @@ cd mcp_servers/trivy
 
 ## Links
 - [Trivy MCP](https://github.com/aquasecurity/trivy-mcp)
+- [VEX Document MCP Server](https://github.com/rosstaco/vexdoc-mcp)
 - [CVE Search MCP](https://github.com/roadwy/cve-search_mcp) 
 - [Vulpy Test App](https://github.com/fportantier/vulpy)

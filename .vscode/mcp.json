@@ -12,6 +12,13 @@
             "url": "http://localhost:8080/sse",
 
         },
+        "vexdoc-mcp": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "vexdoc-mcp"
+            ]
+        },
         "cve-search_mcp": {
             "type": "stdio",
             "command": "uv",
