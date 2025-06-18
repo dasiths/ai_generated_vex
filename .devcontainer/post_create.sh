@@ -18,10 +18,12 @@ export PATH="$HOME/.local/bin:$PATH"
 trivy plugin install mcp
 
 # Install CVE Search
-cd mcp_servers/cve-search_mcp && uv sync
+pushd mcp_servers/cve-search_mcp || exit
+uv sync
+popd || exit
 
 # Install vexctl
-go install github.com/openvex/vexctl@latest
+go install github.com/openvex/vexctl@v0.3.0
 
 # Install vexdoc MCP Server
 npm install -g https://github.com/rosstaco/vexdoc-mcp/releases/download/0.0.1-pre-release/vexdoc-mcp-0.0.1.tgz
