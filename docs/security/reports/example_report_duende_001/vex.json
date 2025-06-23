@@ -1,0 +1,62 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://security.example.com/vex/2025-06-23-vul-duende-assessment",
+  "author": "GitHub Copilot Security Analysis Workflow",
+  "role": "Security Assessment Analyst",
+  "timestamp": "2025-06-23T05:37:43.931784963Z",
+  "version": 1,
+  "tooling": "Security Analysis Workflow v1.0 - Trivy + OSV.dev + Manual Analysis",
+  "product": {
+    "@id": "vul-duende",
+    "identifiers": {
+      "git": "file:///workspaces/ai_generated_vex/src/duende"
+    },
+    "supplier": "Security Assessment Team",
+    "name": "vul-duende",
+    "version": "1.0.0"
+  },
+  "statements": [
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-39694",
+        "name": "CVE-2024-39694",
+        "description": "IdentityServer Open Redirect vulnerability allowing attackers to craft malicious URLs that IdentityServer incorrectly treats as local and trusted"
+      },
+      "timestamp": "2025-06-23T05:36:45.831391839Z",
+      "products": [
+        "vul-duende"
+      ],
+      "status": "affected",
+      "action_statement": "Upgrade Duende.IdentityServer to version 7.0.6 or later. Test with malicious redirect URLs to confirm fix effectiveness. Consider implementing additional URL validation using IUrlHelper.IsLocalUrl from ASP.NET Core 5.0+ as an additional defense layer.",
+      "impact_statement": "Duende.IdentityServer version 7.0.0 contains an open redirect vulnerability. The vulnerable code is reachable through standard IdentityServer authentication flows that use GetAuthorizationContextAsync and IsValidReturnUrl methods. The application uses default IdentityServer configuration with no custom URL validation, making the vulnerability exploitable. Attackers can craft malicious URLs that IdentityServer incorrectly treats as local, enabling phishing attacks to steal user credentials after legitimate authentication."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-49755",
+        "name": "CVE-2024-49755", 
+        "description": "Duende IdentityServer has insufficient validation of DPoP cnf claim in Local APIs"
+      },
+      "timestamp": "2025-06-23T05:37:08.250152085Z",
+      "products": [
+        "vul-duende"
+      ],
+      "status": "not_affected",
+      "justification": "component_not_present",
+      "impact_statement": "Duende.IdentityServer version 7.0.0 contains a DPoP validation vulnerability in Local APIs, but this functionality is not enabled in the application. The vulnerable code path requires TokenMode to be set to LocalApiTokenMode.DPoPAndBearer or LocalApiTokenMode.DPoPOnly, but the application only uses Bearer token validation without DPoP. The vulnerable component is present but not configured to use the affected functionality."
+    },
+    {
+      "vulnerability": {
+        "@id": "CVE-2024-35255",
+        "name": "CVE-2024-35255",
+        "description": "Azure Identity Libraries and Microsoft Authentication Library Elevation of Privilege Vulnerability"
+      },
+      "timestamp": "2025-06-23T05:37:24.219180926Z",
+      "products": [
+        "vul-duende"
+      ],
+      "status": "affected",
+      "action_statement": "Upgrade Microsoft.Identity.Client to version 4.61.3 or later. Test Microsoft authentication flows after upgrade to ensure continued functionality. Review and audit any stored Microsoft Graph access tokens for potential compromise.",
+      "impact_statement": "Microsoft.Identity.Client version 4.61.2 contains an elevation of privilege vulnerability that affects the application Microsoft authentication flows. The vulnerable library is actively used for authentication and token handling in the Microsoft Graph integration. The application processes Microsoft access tokens through the vulnerable library code and stores tokens for API calls."
+    }
+  ]
+}
