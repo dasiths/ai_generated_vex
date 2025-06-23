@@ -14,7 +14,7 @@
                 "vexdoc-mcp"
             ]
         },
-        "ocv-mcp": {
+        "osv-mcp": {
             "type": "http",
             "url": "http://localhost:3001/mcp"
         },
