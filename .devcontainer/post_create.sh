@@ -19,7 +19,7 @@ trivy plugin install mcp
 
 # Install CVE Search
 pushd mcp_servers/cve-search_mcp || exit
-uv sync
+uv sync || exit
 popd || exit
 
 # Install vexctl
