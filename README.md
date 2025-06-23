@@ -116,7 +116,7 @@ Analyze existing security reports to create detailed exploit scenarios and proof
 Start the exploit analysis workflow in GitHub Copilot:
 
 ```markdown
-I want to do a security report exploit ananysis for all the CVE's in the latest report.
+I want to do a security report exploit analysis for all the CVE's in the latest report.
 ```
 
 **Requirements:**
