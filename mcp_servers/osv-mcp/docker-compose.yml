@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   osv-mcp-server:
     image: ghcr.io/stackloklabs/osv-mcp/server:0.0.6

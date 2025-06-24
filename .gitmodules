@@ -1,6 +1,3 @@
-[submodule "mcp_servers/cve-search_mcp"]
-	path = mcp_servers/cve-search_mcp
-	url = https://github.com/roadwy/cve-search_mcp.git
 [submodule "src/vulpy"]
 	path = src/vulpy
 	url = https://github.com/dasiths/vulpy.git
