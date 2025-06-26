@@ -49,12 +49,16 @@ applyTo: "**"
 This step requires the highest level of technical rigor. Each CVE must be analyzed with the thoroughness of a penetration test finding. Surface-level analysis is unacceptable and undermines the entire VEX document's credibility.
 
 **Process**:
-1. **CVE Research**: Fetch comprehensive details from NVD, security advisories, and exploit databases
-   - **NVD Lookup**: Use https://nvd.nist.gov/vuln/detail/{CVE-ID} to retrieve official CVE details
-   - Vulnerability mechanism and root cause
-   - Attack prerequisites and conditions
-   - Known exploit techniques and proof-of-concepts
-   - Environmental dependencies for successful exploitation
+1. **CVE Research**: Fetch comprehensive details from OSV, security advisories, and exploit databases
+   - **OSV Lookup**: For each CVE-ID identified in Step 1, use the osv-mcp tool to retrieve detailed vulnerability information
+   - **Analysis Requirements**:
+     - Vulnerability mechanism and root cause
+     - Attack prerequisites and conditions
+     - Known exploit techniques and proof-of-concepts
+     - Environmental dependencies for successful exploitation
+  **Tool Usage**:
+  - For each CVE-ID from trivy-mcp results: call osv-mcp tool
+  - Compile comprehensive vulnerability profiles from OSV data
 
 2. **Deep Code Analysis**: Trace complete execution paths from entry points to vulnerable code
    - **Entry Point Analysis**: How can external input reach the vulnerable component?
@@ -213,41 +217,42 @@ All three files must be stored in: `docs/security/reports/[report-name]/`
 **VEX Document**: See `vex.json` for detailed CVE determinations
 ```
 
-### 2. VEX Document Structure (vex.json):
-```json
-{
-  "@context": "https://openvex.dev/ns/v0.2.0",
-  "@id": "https://[org]/security/vex/[YYYYMMDD]-[report-name]-vex",
-  "author": "[Organization]",
-  "timestamp": "[ISO 8601]",
-  "version": "1.0",
-  "tooling": "Security Analysis Workflow v1.0 - Trivy + Manual Analysis",
-  "product": {
-    "@id": "[report-name]",
-    "identifiers": {
-      "git": "[repo URL and commit]"
-    },
-    "supplier": "[Organization]",
-    "name": "[Product Name]",
-    "version": "[Version]"
-  },
-  "statements": [
-    {
-      "vulnerability": {
-        "@id": "[CVE-ID]",
-        "name": "[CVE identifier]",
-        "description": "[NVD description]"
-      },
-      "products": ["[report-name]"],
-      "status": "[not_affected|affected|fixed|under_investigation]",
-      "justification": "[reason]",
-      "impact_statement": "[Step 2 analysis]",
-      "action_statement": "[remediation]",
-      "timestamp": "[ISO 8601]"
-    }
-  ]
-}
-```
+### 2. VEX Document Generation
+
+**Objective**: Create individual VEX statements for each CVE-product combination and merge into comprehensive vex.json
+
+### Process:
+
+#### 1. Individual VEX Statement Creation
+For each CVE found in Step 1 with analysis from Step 2:
+
+- **Tool**: Use vexdoc-mcp with `create_vex_statement` function
+- **Required inputs**:
+  - `product`: PURL format identifier from trivy scan (e.g., "pkg:apk/wolfi/git@2.39.0-r1?arch=x86_64")
+  - `vulnerability`: CVE-ID from Step 1 (e.g., "CVE-2023-1234")
+  - `status`: Determined from Step 2 analysis (not_affected|affected|fixed|under_investigation)
+- **Optional inputs** (based on Step 2 analysis):
+  - `justification`: Required if status is "not_affected"
+  - `impact_statement`: Use exploitability analysis findings
+  - `action_statement`: Remediation recommendations
+  - `author`: Organization/team name
+
+#### 2. VEX Document Consolidation
+- **Tool**: Use vexdoc-mcp with `merge_vex_documents` function
+- **Input**: Array of all individual VEX statements created in step 1
+- **Output**: Single comprehensive vex.json document
+
+### Tool Usage Workflow:
+1. For each (CVE-ID + vulnerable_library) pair from trivy-mcp:
+   - Call `vexdoc-mcp.create_vex_statement` with product PURL, CVE-ID, status, and analysis findings
+   - **⚠️ CRITICAL**: Don't use special characters in the impact_statement or action_statement fields
+   - Collect all individual VEX statements
+2. Call `vexdoc-mcp.merge_vex_documents` with array of all statements
+3. Output: Final consolidated vex.json document
+
+### Deliverables:
+- Individual VEX statements per CVE-product pair
+- Consolidated vex.json document
 
 **Status Logic**:
 - **not_affected**: Code unreachable, conditions unmet, mitigations prevent exploitation

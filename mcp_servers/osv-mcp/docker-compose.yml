@@ -1,0 +1,11 @@
+services:
+  osv-mcp-server:
+    image: ghcr.io/stackloklabs/osv-mcp/server:0.0.6
+    container_name: osv-mcp-server
+    environment:
+      - MCP_TRANSPORT=http-stream
+      - MCP_PORT=3001
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+    init: true

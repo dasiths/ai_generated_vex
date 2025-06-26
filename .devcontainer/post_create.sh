@@ -17,11 +17,6 @@ export PATH="$HOME/.local/bin:$PATH"
 # Install Trivy plugins
 trivy plugin install mcp
 
-# Install CVE Search
-pushd mcp_servers/cve-search_mcp || exit
-uv sync
-popd || exit
-
 # Install vexctl
 go install github.com/openvex/vexctl@v0.3.0
 
