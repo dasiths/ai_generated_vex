@@ -86,42 +86,14 @@ All deliverables automatically saved to: `docs/security/reports/[report-name]/`
 
 ## Key Features
 
-**🎯 Evidence-Based Analysis**: Every vulnerability determination backed by concrete technical proof and detailed reasoning
-**🔍 Beyond CVE Scanning**: Discovers application-specific vulnerabilities through systematic OWASP Top 10 review
-**📊 Risk-Based Prioritization**: Focus security resources on vulnerabilities that pose actual threat in your environment
-**📋 Industry Standards**: OpenVEX-compliant documents generated using the VEX Document MCP Server, enabling transparent vulnerability communication across teams and vendors
-**🔬 Technical Rigor**: Exploitability analysis performed with penetration testing-level depth and documentation
+**🎯 Evidence-Based Analysis**: Every vulnerability determination backed by concrete technical proof and detailed reasoning  
+**🔍 Beyond CVE Scanning**: Discovers application-specific vulnerabilities through systematic OWASP Top 10 review  
+**📊 Risk-Based Prioritization**: Focus security resources on vulnerabilities that pose actual threat in your environment  
+**📋 Industry Standards**: OpenVEX-compliant documents generated using the VEX Document MCP Server, enabling transparent vulnerability communication across teams and vendors  
+**🔬 Technical Rigor**: Exploitability analysis performed with penetration testing-level depth and documentation  
 **⚡ Automation with Intelligence**: Combines automated scanning tools with human-level security analysis reasoning
 
 ## Setup
-
-### Development Container (Recommended)
-
-This project uses a **development container** that automatically sets up all required tools and dependencies:
-
-**Pre-installed Tools:**
-
-- **Trivy** (v0.63.0) - Vulnerability scanner with MCP plugin
-- **Go** (v1.24.4) - For vexctl installation
-- **Node.js** (v22) - For vexdoc-mcp installation
-- **Docker** - Container runtime for OSV MCP server
-- **Python** (3.11) - Base development environment
-
-**Automated Setup:**
-
-1. Clone repository: `git clone <repository> && cd ai_generated_vex`
-2. Open in VS Code with Dev Containers extension
-3. Select "Reopen in Container" when prompted
-4. All tools install automatically via [`.devcontainer/post_create.sh`](.devcontainer/post_create.sh)
-
-**What Gets Installed Automatically:**
-
-- Trivy MCP plugin
-- vexctl CLI tool
-- vexdoc-mcp NPM package
-- Git submodules (OSV MCP server)
-
-### Manual Setup (Alternative)
 
 If not using the dev container, you'll need to install the following prerequisites first:
 
