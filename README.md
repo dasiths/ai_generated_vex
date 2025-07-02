@@ -1,8 +1,8 @@
-# Security Vulnerability Assessment with VEX Generation
+# AI-Powered Security Analysis with VEX Generation
 
-**VEX (Vulnerability Exploitability eXchange)** tells you whether vulnerabilities actually matter in your specific environment. Instead of just listing CVEs, VEX provides context about real exploitability.
+**VEX (Vulnerability Exploitability eXchange)** tells you whether vulnerabilities actually matter in your specific environment. Instead of just listing CVEs, VEX provides context about real exploitability and practical risk assessment.
 
-## The Problem with Traditional Vulnerability Scanning
+## 🚨 The Problem with Traditional Vulnerability Scanning
 
 Traditional vulnerability scanners generate overwhelming noise - reporting every CVE found in dependencies without considering whether they're actually exploitable. Security teams waste critical time triaging hundreds of theoretical vulnerabilities while real threats go unaddressed.
 
@@ -12,7 +12,7 @@ Traditional vulnerability scanners generate overwhelming noise - reporting every
 - **Alert Fatigue**: Teams become desensitized to constant vulnerability reports
 - **Resource Misallocation**: Critical effort spent on non-exploitable CVEs instead of real security gaps
 
-## Why Exploitability Analysis Matters
+## 🎯 Why Exploitability Analysis Matters
 
 This workflow addresses fundamental gaps in traditional security assessment by focusing on **actual risk** rather than theoretical vulnerability presence. The exploitability analysis phase performs deep technical investigation that answers the critical question: "Can an attacker actually exploit this in our specific environment?"
 
@@ -33,184 +33,120 @@ VEX documents provide standardized communication about vulnerability status acro
 This automated workflow generates three comprehensive security deliverables:
 
 1. **📄 Summary** - Executive overview of critical findings
-2. **📋 Security Report** - Detailed technical analysis with remediation guidance
+2. **📋 Security Reports** - Detailed technical analysis with exploitability details and remediation guidance
 3. **🔒 VEX Document** - Industry-standard OpenVEX-compliant exploitability determinations generated using the VEX Document MCP Server
 
-**📁 Example Reports**: [docs/security/reports/](docs/security/reports/) | **📖 Full Instructions**: [.github/instructions/vex.instructions.md](.github/instructions/vex.instructions.md)
+**📁 Example Reports**: [docs/security/reports/](docs/security/reports/)
 
-## How It Works
+## Two Modes of Operation
 
-**4-Step Automated Workflow:**
+This project provides two complementary security analysis workflows:
 
-### 1. 🔍 Comprehensive Scanning
-Trivy MCP identifies CVEs, misconfigurations, secrets, and license issues across dependencies and infrastructure.
+### 🔍 **Mode 1: Security Scan & VEX Generation**
+Complete security assessment workflow that scans your application, analyses exploitability, and generates standardized VEX documentation.
 
-### 2. 🧠 Exploitability Analysis *(Critical Step)*
-The most important phase - rigorous technical analysis determining whether each CVE is actually exploitable:
-- **Code Path Tracing**: Map complete execution flows from entry points to vulnerable code
-- **Attack Prerequisites**: Evaluate authentication, network access, and input validation barriers
-- **Environmental Protections**: Assess runtime defenses, deployment controls, and monitoring capabilities
-- **Evidence Collection**: Document concrete technical proof for every exploitability determination
+**Use when:** Starting security assessment from scratch or need comprehensive vulnerability analysis
 
-### 3. 🔒 OWASP Top 10 Review
-Systematic manual review discovering application-specific vulnerabilities beyond known CVEs:
-- Business logic flaws not captured in vulnerability databases
-- Implementation-specific security issues
-- Configuration and deployment vulnerabilities
-- Custom code security patterns
+### 🎯 **Mode 2: Deep CVE Exploit Analysis** 
+Advanced exploit analysis that takes existing security reports and creates detailed technical documentation for each CVE vulnerability.
 
-### 4. 📋 Comprehensive Documentation
-Generate three industry-standard deliverables with complete technical analysis and evidence-based conclusions. VEX documents are created using the VEX Document MCP Server to ensure OpenVEX compliance and standardized vulnerability communication.
+**Use when:** You have existing security reports and need deeper technical analysis for specific CVEs
 
-## Quick Start
+## Why This Approach Matters
 
-### 1. Provide Required Information
-GitHub Copilot will ask for three details before starting:
-- **Report Name**: `my-app-security-assessment`
-- **Product Name**: `my-application`
-- **Scope**: `src/` (directories to analyze)
+Traditional vulnerability scanners generate overwhelming noise - reporting every CVE found in dependencies without considering actual exploitability. This project focuses on **evidence-based risk assessment** rather than theoretical vulnerability presence.
 
-### 2. Start Assessment
-```
-Perform a security assessment and generate VEX documentation.
+**Key Benefits:**
+- **🎯 Evidence-Based Analysis**: Every determination backed by concrete technical proof
+- **🔍 Beyond CVE Scanning**: Discovers application-specific vulnerabilities through OWASP Top 10 review
+- **📊 Risk-Based Prioritization**: Focus resources on vulnerabilities that pose actual threat
+- **📋 Industry Standards**: OpenVEX-compliant documents for transparent vulnerability communication
+- **⚡ Automated Intelligence**: Combines scanning tools with human-level security analysis
 
-Report Name: my-app-assessment
-Product: my-application
-Scope: src/
-```
+## Getting Started
 
-### 3. Get Results
-All deliverables automatically saved to: `docs/security/reports/[report-name]/`
+### 1️⃣ `Mode 1`: Security Scan & VEX Generation
 
-**That's it!** Copilot handles the complex 4-step analysis workflow automatically.
+**Complete end-to-end security assessment workflow**
 
-## CVE Exploit Analysis Workflow
+1. **Start Assessment**: Open GitHub Copilot and use the security scan prompt
+2. **Provide Details**: Copilot will ask for:
+   - **Report Name**: `my-app-security-assessment`
+   - **Product Name**: `my-application`
+   - **Scope**: `src/` (directories to analyze)
 
-For a more detailed CVE exploit analysis beyond standard VEX generation, this project includes a specialized **CVE Exploit Analysis Workflow** that transforms security report findings into a detailed analysis of the CVE.
+3. **Automated 4-Step Process**:
+   - 🔍 **Comprehensive Scanning**: Trivy identifies CVEs, misconfigurations, secrets, and license issues
+   - 🧠 **Exploitability Analysis**: Rigorous technical analysis determining actual exploitability
+   - 🔒 **OWASP Top 10 Review**: Manual review for application-specific vulnerabilities
+   - 📋 **VEX Documentation**: Generate OpenVEX-compliant industry-standard documents
 
-### 🎯 Purpose
+**Results**: Three deliverables automatically saved to `docs/security/reports/[report-name]/`:
+- 📄 **Summary** - Executive overview of critical findings
+- 📋 **Security Report** - Detailed technical analysis with remediation guidance
+- 🔒 **VEX Document** - Industry-standard exploitability determinations
 
-Analyze existing security reports to create detailed exploit scenarios and proof-of-concept demonstrations for CVE vulnerabilities. This workflow transforms CVE findings into actionable security intelligence for penetration testing and risk assessment.
+### 2️⃣ `Mode 2`: Deep CVE Exploit Analysis
 
-### 🔄 How It Works
+**Advanced technical analysis for existing security reports**
 
-**Iterative CVE Processing**: Analyzes ALL CVEs from security reports one-by-one, clearing context between each to prevent memory overflow while ensuring comprehensive coverage.
+1. **Prerequisites**: Existing security report with CVE findings (from Mode 1 or other sources)
+2. **Start Analysis**: Open GitHub Copilot and use the deep CVE analysis prompt
+3. **Select Report**: Copilot will show available reports in `docs/security/reports/`
 
-**7-Step Process:**
+4. **7-Step Deep Analysis Process**:
+   - 📊 **CVE Report Analysis**: Extract and prioritize ALL CVEs from existing reports
+   - 🔍 **Intelligence Gathering**: Deep research using vulnerability databases
+   - 🧩 **Library Integration Analysis**: Trace vulnerable library usage in application context
+   - 🎯 **Exploit Development**: Create theoretical proof-of-concept demonstrations (documentation only)
+   - 📋 **Individual CVE Documentation**: Generate detailed exploit analysis per CVE
+   - ⏭️ **Progress Tracking**: Manage analysis queue and context clearing
+   - 📊 **Executive Summary**: High-level overview after processing multiple CVEs
 
-1. **CVE Report Analysis**: Extract and prioritize ALL CVEs from existing security reports
-2. **Intelligence Gathering**: Deep research using OCV-MCP tools (OSV, GHSA, exploit databases)
-3. **Library Integration Analysis**: Trace how vulnerable libraries are used in application context
-4. **Exploit Development**: Create theoretical proof-of-concept demonstrations (documentation only)
-5. **Individual CVE Documentation**: Generate detailed exploit analysis per CVE
-6. **Progress Tracking**: Manage analysis queue and context clearing
-7. **Executive Summary**: High-level overview after processing multiple CVEs
+**Results**: Enhanced documentation with detailed exploit scenarios:
+- � **Individual CVE Documents**: `[CVE-ID]-exploit-analysis.md` per vulnerability
+- 📊 **Executive Summary**: `executive-summary-exploit-analysis.md` with business impact
+- 🎯 **Prioritized Findings**: Risk-based ordering of exploitable vs non-exploitable CVEs
 
-### 📁 Key Files
+## Prompts & Instructions
 
-- **📋 Instructions**: [.github/instructions/cve-exploit-analysis.instructions.md](.github/instructions/cve-exploit-analysis.instructions.md)
+- **📖 Global Instructions**: [.github/instructions/vex.instructions.md](.github/instructions/vex.instructions.md) - Applies to both modes
+- **🔨 MCP Tools**: Ensure these MCP tools are made available to the agent.
+    ![MCP tools](assets/mcp_tools.png)
+- **🔍 Mode 1 Prompt**: [.github/prompts/security-scan-and-vex.prompt.md](.github/prompts/security-scan-and-vex.prompt.md)
+    ![security analysis prompt](./assets/security-analysis-prompt.png)
 
-### 🚀 Usage
+    ![security analysis prompt example](./assets/security-analysis-prompt-example.png)
 
-**Note**: To use the referenced MCP Servers, the analysis must be done from a chat in user mode, not via a prompt. Claude 4 Sonnet is the recommended model for this type of complex security analysis.
-
-![Copilot Screenshot of running exploit analysis](.github/assets/copilot-analysis.png)
-
-Open a new chat in GitHub Copilot and start the exploit analysis by typing the following:
-
-```markdown
-Can you run an exploit analysis from `example_report`?
-```
-
-or
-
-```markdown
-Can you run an exploit analysis?
-```
-
-GitHub Copilot will ask you which report you wish to run the analysis on.
-
-**Requirements:**
-
-- Existing security report with CVE findings (from VEX generation workflow)
-- OCV-MCP server running for vulnerability intelligence
-- Access to application source code for library integration analysis
-
-### 📊 Deliverables
-
-- **Individual CVE Documents**: `[CVE-ID]-exploit-analysis.md` per vulnerability
-- **Executive Summary**: `executive-summary-exploit-analysis.md` with business impact
-- **Prioritized Findings**: Risk-based ordering of exploitable vs non-exploitable CVEs
-
-### ⚠️ Important Notes
-
-- **Analysis Only**: Creates documentation and theoretical demonstrations - NO actual exploit files
-- **CVE Focus**: Only analyzes vulnerabilities with CVE identifiers (excludes OWASP findings)
-- **Context Management**: Processes one CVE at a time to maintain analysis quality
-- **Memory Safe**: Designed to handle any number of CVEs without context overflow
-
-### 🔗 Integration
-
-This workflow complements the main VEX generation process by providing deeper technical analysis of specific CVE vulnerabilities identified during security assessment.
-
-## Key Features
-
-**🎯 Evidence-Based Analysis**: Every vulnerability determination backed by concrete technical proof and detailed reasoning  
-**🔍 Beyond CVE Scanning**: Discovers application-specific vulnerabilities through systematic OWASP Top 10 review  
-**📊 Risk-Based Prioritization**: Focus security resources on vulnerabilities that pose actual threat in your environment  
-**📋 Industry Standards**: OpenVEX-compliant documents generated using the VEX Document MCP Server, enabling transparent vulnerability communication across teams and vendors  
-**🔬 Technical Rigor**: Exploitability analysis performed with penetration testing-level depth and documentation  
-**⚡ Automation with Intelligence**: Combines automated scanning tools with human-level security analysis reasoning
+- **🎯 Mode 2 Prompt**: [.github/prompts/deep-cve-exploit-analysis.prompt.md](.github/prompts/deep-cve-exploit-analysis.prompt.md)
+    ![deep cve analysis prompt](./assets/deep-cve-analysis-prompt.png)
+- **📁 Example Reports**: [docs/security/reports/](docs/security/reports/)
 
 ## Setup
 
-If not using the dev container, you'll need to install the following prerequisites first:
+**Development Container**: Pre-configured with all tools and MCP servers. Simply open in VS Code with Dev Containers extension.
 
-**Prerequisites Required:**
-
-- **Docker** - For running the OSV MCP server
-- **Go** (v1.24+ recommended) - For vexctl installation
-- **Node.js** (v22+ recommended) - For vexdoc-mcp installation  
-- **Git** - For repository management and submodules
-- **Trivy** (v0.63.0+ recommended) - Security scanner
-
-**Manual Installation Steps:**
+**Manual Setup**: If not using the dev container, install these prerequisites:
 
 ```bash
+# Clone and setup
 git clone <repository>
 cd ai_generated_vex
+make setup  # Installs all required tools
 
-# Option 1: Use automated setup (requires prerequisites above)
-make setup
-
-# Option 2: Manual step-by-step installation
-git submodule init && git submodule update
-trivy plugin install mcp
-go install github.com/openvex/vexctl@v0.3.0
-npm install -g https://github.com/rosstaco/vexdoc-mcp/releases/download/0.0.1-pre-release/vexdoc-mcp-0.0.1.tgz
-
-# Start OSV MCP server
+# Start MCP servers
 make start-osv-mcp-server
 ```
 
-**Note**: The development container automatically installs and configures all these prerequisites with the exact versions tested for this project.
+**Prerequisites Required:**
+- **Docker** - For OSV MCP server
+- **Go** (v1.24+) - For vexctl installation
+- **Node.js** (v22+) - For vexdoc-mcp installation
+- **Trivy** (v0.63.0+) - Security scanner
 
-### Available Makefile Commands
+### MCP Configuration
 
-The project includes helpful makefile targets for development:
-
-```bash
-make help                  # Show all available commands
-make setup                 # Install all required tools and dependencies
-make start-osv-mcp-server  # Start the OSV MCP server
-make stop-osv-mcp-server   # Stop the OSV MCP server
-make status-osv-mcp-server # Check OSV MCP server status
-make logs-osv-mcp-server   # View OSV MCP server logs
-```
-
-### MCP Configuration for GitHub Copilot
-
-Configure these MCP servers in your VS Code settings (automatically configured in dev container):
+The following MCP servers are automatically configured in the dev container:
 
 ```json
 {
@@ -218,16 +154,12 @@ Configure these MCP servers in your VS Code settings (automatically configured i
         "Trivy MCP": {
             "type": "stdio",
             "command": "trivy",
-            "args": [
-                "mcp"
-            ]
+            "args": ["mcp"]
         },
         "vexdoc-mcp": {
             "type": "stdio",
             "command": "npx",
-            "args": [
-                "vexdoc-mcp"
-            ]
+            "args": ["vexdoc-mcp"]
         },
         "osv-mcp": {
             "type": "http",
@@ -237,15 +169,25 @@ Configure these MCP servers in your VS Code settings (automatically configured i
 }
 ```
 
+### Helpful Commands
+
+```bash
+make help                  # Show all available commands
+make setup                 # Install all required tools and dependencies
+make start-osv-mcp-server  # Start the OSV MCP server
+make stop-osv-mcp-server   # Stop the OSV MCP server
+make status-osv-mcp-server # Check OSV MCP server status
+```
+
 ## Documentation & Examples
 
 - **📖 Complete Instructions**: [.github/instructions/vex.instructions.md](.github/instructions/vex.instructions.md)
 - **📁 Example Reports**: [docs/security/reports/](docs/security/reports/)
 - **🔗 VEX Specification**: [OpenVEX](https://github.com/openvex/spec)
 
-## Links
+## Related Projects
 
-- [Trivy MCP](https://github.com/aquasecurity/trivy-mcp)
-- [VEX Document MCP Server](https://github.com/rosstaco/vexdoc-mcp)
-- [OSV MCP Server](https://github.com/StacklokLabs/osv-mcp)
-- [Vulpy Test App](https://github.com/fportantier/vulpy)
+- [Trivy MCP](https://github.com/aquasecurity/trivy-mcp) - Security scanning MCP server
+- [VEX Document MCP Server](https://github.com/rosstaco/vexdoc-mcp) - VEX document generation
+- [OSV MCP Server](https://github.com/StacklokLabs/osv-mcp) - Vulnerability intelligence
+- [Vulpy Test App](https://github.com/fportantier/vulpy) - Vulnerable Python application for testing

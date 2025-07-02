@@ -5,14 +5,16 @@
             "command": "trivy",
             "args": [
                 "mcp"
-            ]
+            ],
+            "cwd": "${workspaceFolder}"
         },
         "vexdoc-mcp": {
             "type": "stdio",
             "command": "npx",
             "args": [
                 "vexdoc-mcp"
-            ]
+            ],
+            "cwd": "${workspaceFolder}"
         },
         "osv-mcp": {
             "type": "http",
