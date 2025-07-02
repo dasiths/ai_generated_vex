@@ -84,6 +84,75 @@ All deliverables automatically saved to: `docs/security/reports/[report-name]/`
 
 **That's it!** Copilot handles the complex 4-step analysis workflow automatically.
 
+## CVE Exploit Analysis Workflow
+
+For a more detailed CVE exploit analysis beyond standard VEX generation, this project includes a specialized **CVE Exploit Analysis Workflow** that transforms security report findings into a detailed analysis of the CVE.
+
+### 🎯 Purpose
+
+Analyze existing security reports to create detailed exploit scenarios and proof-of-concept demonstrations for CVE vulnerabilities. This workflow transforms CVE findings into actionable security intelligence for penetration testing and risk assessment.
+
+### 🔄 How It Works
+
+**Iterative CVE Processing**: Analyzes ALL CVEs from security reports one-by-one, clearing context between each to prevent memory overflow while ensuring comprehensive coverage.
+
+**7-Step Process:**
+
+1. **CVE Report Analysis**: Extract and prioritize ALL CVEs from existing security reports
+2. **Intelligence Gathering**: Deep research using OCV-MCP tools (OSV, GHSA, exploit databases)
+3. **Library Integration Analysis**: Trace how vulnerable libraries are used in application context
+4. **Exploit Development**: Create theoretical proof-of-concept demonstrations (documentation only)
+5. **Individual CVE Documentation**: Generate detailed exploit analysis per CVE
+6. **Progress Tracking**: Manage analysis queue and context clearing
+7. **Executive Summary**: High-level overview after processing multiple CVEs
+
+### 📁 Key Files
+
+- **📋 Instructions**: [.github/instructions/cve-exploit-analysis.instructions.md](.github/instructions/cve-exploit-analysis.instructions.md)
+
+### 🚀 Usage
+
+**Note**: To use the referenced MCP Servers, the analysis must be done from a chat in user mode, not via a prompt. Claude 4 Sonnet is the recommended model for this type of complex security analysis.
+
+![Copilot Screenshot of running exploit analysis](.github/assets/copilot-analysis.png)
+
+Open a new chat in GitHub Copilot and start the exploit analysis by typing the following:
+
+```markdown
+Can you run an exploit analysis from `example_report`?
+```
+
+or
+
+```markdown
+Can you run an exploit analysis?
+```
+
+GitHub Copilot will ask you which report you wish to run the analysis on.
+
+**Requirements:**
+
+- Existing security report with CVE findings (from VEX generation workflow)
+- OCV-MCP server running for vulnerability intelligence
+- Access to application source code for library integration analysis
+
+### 📊 Deliverables
+
+- **Individual CVE Documents**: `[CVE-ID]-exploit-analysis.md` per vulnerability
+- **Executive Summary**: `executive-summary-exploit-analysis.md` with business impact
+- **Prioritized Findings**: Risk-based ordering of exploitable vs non-exploitable CVEs
+
+### ⚠️ Important Notes
+
+- **Analysis Only**: Creates documentation and theoretical demonstrations - NO actual exploit files
+- **CVE Focus**: Only analyzes vulnerabilities with CVE identifiers (excludes OWASP findings)
+- **Context Management**: Processes one CVE at a time to maintain analysis quality
+- **Memory Safe**: Designed to handle any number of CVEs without context overflow
+
+### 🔗 Integration
+
+This workflow complements the main VEX generation process by providing deeper technical analysis of specific CVE vulnerabilities identified during security assessment.
+
 ## Key Features
 
 **🎯 Evidence-Based Analysis**: Every vulnerability determination backed by concrete technical proof and detailed reasoning  
