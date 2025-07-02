@@ -114,6 +114,8 @@ Analyze existing security reports to create detailed exploit scenarios and proof
 
 **Note**: To use the referenced MCP Servers, the analysis must be done from a chat in user mode, not via a prompt. Claude 4 Sonnet is the recommended model for this type of complex security analysis.
 
+![MCP tools](./github/assets/mcp_tools.png)
+
 ![Copilot Screenshot of running exploit analysis](.github/assets/copilot-analysis.png)
 
 Open a new chat in GitHub Copilot and start the exploit analysis by typing the following:

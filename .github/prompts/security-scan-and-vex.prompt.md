@@ -23,6 +23,14 @@ tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFile
 2. **Product Name**: Name of the application/system being analyzed
 3. **Scope**: Assessment boundaries - which directories, components, or modules to analyze
 
+### Required MCP Tools:
+
+**IMPORTANT**: If these MCP tools are not already configured, you must ask the user set them up before proceeding:
+
+- **Trivy MCP**: For vulnerability scanning and dependency analysis. 'scan_filesystem', 'scan_image', 'scan_repository'.
+- **vexdoc-mcp**: For generating VEX documents
+- **osv-mcp**: For detailed CVE analysis and exploitability research
+
 ### Example Questions to Ask:
 - "What would you like to name this security assessment report?"
 - "What is the name of the product/application being analyzed?"
@@ -32,7 +40,7 @@ tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFile
 
 ## Step 1: Trivy Vulnerability Scanning
 
-**Objective**: Identify CVEs and misconfigurations using Trivy MCP tools.
+**Objective**: Identify CVEs and misconfigurations using Trivy MCP tools. 'scan_filesystem', 'scan_image', 'scan_repository'
 
 **Actions**:
 1. **Filesystem scan**: All vulnerability types (vulnerabilities, misconfigurations, secrets, licenses)
