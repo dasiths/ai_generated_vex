@@ -2,7 +2,7 @@
 
 **VEX (Vulnerability Exploitability eXchange)** tells you whether vulnerabilities actually matter in your specific environment. Instead of just listing CVEs, VEX provides context about real exploitability and practical risk assessment.
 
-## The Problem with Traditional Vulnerability Scanning
+## 🚨 The Problem with Traditional Vulnerability Scanning
 
 Traditional vulnerability scanners generate overwhelming noise - reporting every CVE found in dependencies without considering whether they're actually exploitable. Security teams waste critical time triaging hundreds of theoretical vulnerabilities while real threats go unaddressed.
 
@@ -12,14 +12,14 @@ Traditional vulnerability scanners generate overwhelming noise - reporting every
 - **Alert Fatigue**: Teams become desensitized to constant vulnerability reports
 - **Resource Misallocation**: Critical effort spent on non-exploitable CVEs instead of real security gaps
 
-## Why Exploitability Analysis Matters
+## 🎯 Why Exploitability Analysis Matters
 
 This workflow addresses fundamental gaps in traditional security assessment by focusing on **actual risk** rather than theoretical vulnerability presence. The exploitability analysis phase performs deep technical investigation that answers the critical question: "Can an attacker actually exploit this in our specific environment?"
 
 **Technical Depth Required:**
 - **Code Reachability Analysis**: Tracing execution paths from entry points to vulnerable functions
 - **Attack Surface Mapping**: Identifying realistic attack vectors and prerequisites
-- **Environmental Context**: Evaluating protective controls, deployment configurations, and runtime defenses
+- **Environmental Context**: Evaluating protective controls, deployment configurations, and runtime defences
 - **Exploitation Feasibility**: Assessing real-world conditions needed for successful attacks
 
 **Beyond CVE Catalogs:**
@@ -33,7 +33,7 @@ VEX documents provide standardized communication about vulnerability status acro
 This automated workflow generates three comprehensive security deliverables:
 
 1. **📄 Summary** - Executive overview of critical findings
-2. **📋 Security Reports** - Detailed technical analysis with exploitability analysis and remediation guidance
+2. **📋 Security Reports** - Detailed technical analysis with exploitability details and remediation guidance
 3. **🔒 VEX Document** - Industry-standard OpenVEX-compliant exploitability determinations generated using the VEX Document MCP Server
 
 **📁 Example Reports**: [docs/security/reports/](docs/security/reports/)
@@ -58,21 +58,21 @@ Traditional vulnerability scanners generate overwhelming noise - reporting every
 
 **Key Benefits:**
 - **🎯 Evidence-Based Analysis**: Every determination backed by concrete technical proof
-- **🔍 Beyond CVE Scanning**: Discovers application-specific vulnerabilities through OWASP Top 10 review  
+- **🔍 Beyond CVE Scanning**: Discovers application-specific vulnerabilities through OWASP Top 10 review
 - **📊 Risk-Based Prioritization**: Focus resources on vulnerabilities that pose actual threat
 - **📋 Industry Standards**: OpenVEX-compliant documents for transparent vulnerability communication
 - **⚡ Automated Intelligence**: Combines scanning tools with human-level security analysis
 
 ## Getting Started
 
-### Mode 1: Security Scan & VEX Generation
+### 1️⃣ `Mode 1`: Security Scan & VEX Generation
 
 **Complete end-to-end security assessment workflow**
 
 1. **Start Assessment**: Open GitHub Copilot and use the security scan prompt
 2. **Provide Details**: Copilot will ask for:
    - **Report Name**: `my-app-security-assessment`
-   - **Product Name**: `my-application` 
+   - **Product Name**: `my-application`
    - **Scope**: `src/` (directories to analyze)
 
 3. **Automated 4-Step Process**:
@@ -83,10 +83,10 @@ Traditional vulnerability scanners generate overwhelming noise - reporting every
 
 **Results**: Three deliverables automatically saved to `docs/security/reports/[report-name]/`:
 - 📄 **Summary** - Executive overview of critical findings
-- 📋 **Security Report** - Detailed technical analysis with remediation guidance  
+- 📋 **Security Report** - Detailed technical analysis with remediation guidance
 - 🔒 **VEX Document** - Industry-standard exploitability determinations
 
-### Mode 2: Deep CVE Exploit Analysis
+### 2️⃣ `Mode 2`: Deep CVE Exploit Analysis
 
 **Advanced technical analysis for existing security reports**
 
@@ -112,12 +112,14 @@ Traditional vulnerability scanners generate overwhelming noise - reporting every
 
 - **📖 Global Instructions**: [.github/instructions/vex.instructions.md](.github/instructions/vex.instructions.md) - Applies to both modes
 - **🔨 MCP Tools**: Ensure these MCP tools are made available to the agent.
-![MCP tools](assets/mcp_tools.png)
+    ![MCP tools](assets/mcp_tools.png)
 - **🔍 Mode 1 Prompt**: [.github/prompts/security-scan-and-vex.prompt.md](.github/prompts/security-scan-and-vex.prompt.md)
-![security analysis prompt](./assets/security-analysis-prompt.png)
-![security analysis prompt example](./assets/security-analysis-prompt-example.png)
+    ![security analysis prompt](./assets/security-analysis-prompt.png)
+
+    ![security analysis prompt example](./assets/security-analysis-prompt-example.png)
+
 - **🎯 Mode 2 Prompt**: [.github/prompts/deep-cve-exploit-analysis.prompt.md](.github/prompts/deep-cve-exploit-analysis.prompt.md)
-![deep cve analysis prompt](./assets/deep-cve-analysis-prompt.png)
+    ![deep cve analysis prompt](./assets/deep-cve-analysis-prompt.png)
 - **📁 Example Reports**: [docs/security/reports/](docs/security/reports/)
 
 ## Setup
@@ -138,7 +140,7 @@ make start-osv-mcp-server
 
 **Prerequisites Required:**
 - **Docker** - For OSV MCP server
-- **Go** (v1.24+) - For vexctl installation  
+- **Go** (v1.24+) - For vexctl installation
 - **Node.js** (v22+) - For vexdoc-mcp installation
 - **Trivy** (v0.63.0+) - Security scanner
 
@@ -155,7 +157,7 @@ The following MCP servers are automatically configured in the dev container:
             "args": ["mcp"]
         },
         "vexdoc-mcp": {
-            "type": "stdio", 
+            "type": "stdio",
             "command": "npx",
             "args": ["vexdoc-mcp"]
         },
@@ -171,7 +173,7 @@ The following MCP servers are automatically configured in the dev container:
 
 ```bash
 make help                  # Show all available commands
-make setup                 # Install all required tools and dependencies  
+make setup                 # Install all required tools and dependencies
 make start-osv-mcp-server  # Start the OSV MCP server
 make stop-osv-mcp-server   # Stop the OSV MCP server
 make status-osv-mcp-server # Check OSV MCP server status
