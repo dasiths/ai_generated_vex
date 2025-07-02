@@ -19,7 +19,7 @@ This workflow addresses fundamental gaps in traditional security assessment by f
 **Technical Depth Required:**
 - **Code Reachability Analysis**: Tracing execution paths from entry points to vulnerable functions
 - **Attack Surface Mapping**: Identifying realistic attack vectors and prerequisites
-- **Environmental Context**: Evaluating protective controls, deployment configurations, and runtime defences
+- **Environmental Context**: Evaluating protective controls, deployment configurations, and runtime defenses
 - **Exploitation Feasibility**: Assessing real-world conditions needed for successful attacks
 
 **Beyond CVE Catalogs:**
