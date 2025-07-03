@@ -151,7 +151,7 @@ The following MCP servers are automatically configured in the dev container:
 ```json
 {
     "servers": {
-        "Trivy MCP": {
+        "trivy-mcp": {
             "type": "stdio",
             "command": "trivy",
             "args": ["mcp"]

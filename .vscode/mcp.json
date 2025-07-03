@@ -1,6 +1,6 @@
 {
     "servers": {
-        "Trivy MCP": {
+        "trivy-mcp": {
             "type": "stdio",
             "command": "trivy",
             "args": [
