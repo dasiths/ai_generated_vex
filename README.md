@@ -38,19 +38,21 @@ This automated workflow generates three comprehensive security deliverables:
 
 **📁 Example Reports**: [docs/security/reports/](docs/security/reports/)
 
-## Two Modes of Operation
+## Two VS Code Chat Modes
 
-This project provides two complementary security analysis workflows:
+This project provides two complementary security analysis workflows as **VS Code Chat Modes** - integrated configurations that provide tailored AI behavior with predefined tools and instructions:
 
-### 🔍 **Mode 1: Security Scan & VEX Generation**
+### 🔍 **Chat Mode 1: Security Scan & VEX Generation**
 Complete security assessment workflow that scans your application, analyses exploitability, and generates standardized VEX documentation.
 
 **Use when:** Starting security assessment from scratch or need comprehensive vulnerability analysis
 
-### 🎯 **Mode 2: Deep CVE Exploit Analysis** 
+### 🎯 **Chat Mode 2: Deep CVE Exploit Analysis** 
 Advanced exploit analysis that takes existing security reports and creates detailed technical documentation for each CVE vulnerability.
 
 **Use when:** You have existing security reports and need deeper technical analysis for specific CVEs
+
+Both modes are **VS Code Chat Modes** with predefined MCP tool access, Claude Sonnet 4 model, and structured workflow instructions for a seamless integrated experience.
 
 ## Why This Approach Matters
 
@@ -61,16 +63,39 @@ Traditional vulnerability scanners generate overwhelming noise - reporting every
 - **🔍 Beyond CVE Scanning**: Discovers application-specific vulnerabilities through OWASP Top 10 review
 - **📊 Risk-Based Prioritization**: Focus resources on vulnerabilities that pose actual threat
 - **📋 Industry Standards**: OpenVEX-compliant documents for transparent vulnerability communication
-- **⚡ Automated Intelligence**: Combines scanning tools with human-level security analysis
+- **⚡ Integrated VS Code Experience**: Chat modes provide seamless workflow with automated tool access
+
+## How VS Code Chat Modes Work
+
+This project uses **VS Code Chat Modes** - integrated configurations that provide tailored AI behavior for specific security analysis tasks. Chat modes combine predefined instructions, tools, and AI models into a seamless workflow.
+
+**Key Benefits:**
+- **🎯 Integrated Experience**: No copy-pasting prompts - select mode from dropdown
+- **🔧 Predefined Tools**: Direct access to MCP servers (Trivy, VEX Document, OSV)
+- **🤖 Consistent AI Model**: Uses Claude Sonnet 4 for all analysis
+- **📋 Structured Workflows**: Step-by-step guidance built into each mode
+
+**How to Use:**
+1. Open VS Code Chat view with `Ctrl+Alt+I`
+2. Select your desired mode from the chat mode dropdown
+3. Follow the mode's guided workflow for your security analysis
+
+Both chat modes are **VS Code Chat Modes** with predefined MCP tool access, Claude Sonnet 4 model, and structured workflow instructions for a seamless integrated experience.
 
 ## Getting Started
 
-### 1️⃣ `Mode 1`: Security Scan & VEX Generation
+### Prerequisites
+- VS Code with the latest version installed
+- GitHub Copilot access (Free plan available)
+- The required MCP tools configured (automatically set up in dev container)
+
+### 1️⃣ **Chat Mode 1**: Security Scan & VEX Generation
 
 **Complete end-to-end security assessment workflow**
 
-1. **Start Assessment**: Open GitHub Copilot and use the security scan prompt
-2. **Provide Details**: Copilot will ask for:
+1. **Open VS Code Chat**: Press `Ctrl+Alt+I` to open the Chat view
+2. **Select Chat Mode**: Choose "Security Scan & VEX Generation" from the chat mode dropdown
+3. **Provide Details**: The chat mode will ask for:
    - **Report Name**: `my-app-security-assessment`
    - **Product Name**: `my-application`
    - **Scope**: `src/` (directories to analyze)
@@ -86,13 +111,14 @@ Traditional vulnerability scanners generate overwhelming noise - reporting every
 - 📋 **Security Report** - Detailed technical analysis with remediation guidance
 - 🔒 **VEX Document** - Industry-standard exploitability determinations
 
-### 2️⃣ `Mode 2`: Deep CVE Exploit Analysis
+### 2️⃣ **Chat Mode 2**: Deep CVE Exploit Analysis
 
 **Advanced technical analysis for existing security reports**
 
 1. **Prerequisites**: Existing security report with CVE findings (from Mode 1 or other sources)
-2. **Start Analysis**: Open GitHub Copilot and use the deep CVE analysis prompt
-3. **Select Report**: Copilot will show available reports in `docs/security/reports/`
+2. **Open VS Code Chat**: Press `Ctrl+Alt+I` to open the Chat view
+3. **Select Chat Mode**: Choose "Deep CVE Exploit Analysis" from the chat mode dropdown
+4. **Select Report**: The chat mode will show available reports in `docs/security/reports/`
 
 4. **7-Step Deep Analysis Process**:
    - 📊 **CVE Report Analysis**: Extract and prioritize ALL CVEs from existing reports
@@ -108,17 +134,17 @@ Traditional vulnerability scanners generate overwhelming noise - reporting every
 - 📊 **Executive Summary**: `executive-summary-exploit-analysis.md` with business impact
 - 🎯 **Prioritized Findings**: Risk-based ordering of exploitable vs non-exploitable CVEs
 
-## Prompts & Instructions
+## Chat Modes & Instructions
 
-- **📖 Global Instructions**: [.github/instructions/vex.instructions.md](.github/instructions/vex.instructions.md) - Applies to both modes
+- **📖 Global Instructions**: [.github/instructions/vex.instructions.md](.github/instructions/vex.instructions.md) - Applies to both chat modes
 - **🔨 MCP Tools**: Ensure these MCP tools are made available to the agent.
     ![MCP tools](assets/mcp_tools.png)
-- **🔍 Mode 1 Prompt**: [.github/prompts/security-scan-and-vex.prompt.md](.github/prompts/security-scan-and-vex.prompt.md)
+- **🔍 Chat Mode 1**: [.github/chatmodes/security-scan-and-vex.chatmode.md](.github/chatmodes/security-scan-and-vex.chatmode.md)
     ![security analysis prompt](./assets/security-analysis-prompt.png)
 
     ![security analysis prompt example](./assets/security-analysis-prompt-example.png)
 
-- **🎯 Mode 2 Prompt**: [.github/prompts/deep-cve-exploit-analysis.prompt.md](.github/prompts/deep-cve-exploit-analysis.prompt.md)
+- **🎯 Chat Mode 2**: [.github/chatmodes/deep-cve-exploit-analysis.chatmode.md](.github/chatmodes/deep-cve-exploit-analysis.chatmode.md)
     ![deep cve analysis prompt](./assets/deep-cve-analysis-prompt.png)
 - **📁 Example Reports**: [docs/security/reports/](docs/security/reports/)
 
@@ -182,7 +208,9 @@ make status-osv-mcp-server # Check OSV MCP server status
 ## Documentation & Examples
 
 - **📖 Complete Instructions**: [.github/instructions/vex.instructions.md](.github/instructions/vex.instructions.md)
-- **📁 Example Reports**: [docs/security/reports/](docs/security/reports/)
+- **� Security Scan Chat Mode**: [.github/chatmodes/security-scan-and-vex.chatmode.md](.github/chatmodes/security-scan-and-vex.chatmode.md)
+- **🎯 CVE Analysis Chat Mode**: [.github/chatmodes/deep-cve-exploit-analysis.chatmode.md](.github/chatmodes/deep-cve-exploit-analysis.chatmode.md)
+- **�📁 Example Reports**: [docs/security/reports/](docs/security/reports/)
 - **🔗 VEX Specification**: [OpenVEX](https://github.com/openvex/spec)
 
 ## Related Projects
