@@ -1,7 +1,8 @@
 ---
 mode: agent
+model: Claude Sonnet 4
 description: Security analysis and VEX generation workflow
-tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runNotebooks', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI', 'trivy-mcp', 'vexdoc-mcp', 'osv-mcp']
+tools: ['codebase', 'think', 'searchResults', 'githubRepo', 'todos', 'editFiles', 'search', 'trivy-mcp', 'vexdoc-mcp', 'osv-mcp']
 ---
 
 # Security Analysis and VEX Generation Workflow
@@ -38,6 +39,34 @@ tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFile
 
 **DO NOT START SCANNING OR ANALYSIS WITHOUT THIS INFORMATION**
 
+## PROGRESSIVE DOCUMENTATION REQUIREMENT
+
+**⚠️ MANDATORY: Write reports as you progress through each step**
+
+Instead of waiting until the end, you MUST create and update documentation files after completing each major step. This ensures progress is captured even if the analysis is interrupted and provides stakeholders with incremental updates.
+
+### Required Progressive Actions:
+1. **After Step 1 (Trivy Scan)**: Create initial summary.md with scan results and create the detailed report with Trivy findings
+2. **After Step 2 (CVE Analysis)**: Update both summary.md and detailed report with CVE exploitability analysis
+3. **After Step 3 (OWASP Review)**: Update both documents with OWASP findings and create initial VEX document
+4. **After Step 4 (Final Documentation)**: Finalize all three deliverables with complete analysis
+
+### Directory Structure Setup:
+Before starting any analysis, create the report directory structure:
+```
+docs/security/reports/[report-name]/
+├── summary.md
+├── yyyy-mm-dd-report.md  
+└── vex.json
+```
+
+**Benefits of Progressive Documentation**:
+- Captures analysis progress incrementally
+- Provides stakeholders with interim results  
+- Prevents loss of work if analysis is interrupted
+- Enables early review and feedback on findings
+- Demonstrates systematic methodology
+
 ## Step 1: Trivy Vulnerability Scanning
 
 **Objective**: Identify CVEs and misconfigurations using Trivy MCP tools. 'scan_filesystem', 'scan_image', 'scan_repository'
@@ -50,6 +79,13 @@ tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFile
 
 **Deliverables**: CVE inventory, misconfigurations list, dependency vulnerabilities, secrets detection.
 
+**PROGRESSIVE DOCUMENTATION ACTION**: 
+After completing Trivy scanning:
+1. **Create** `docs/security/reports/[report-name]/summary.md` with initial scan results summary
+2. **Create** `docs/security/reports/[report-name]/yyyy-mm-dd-report.md` with detailed Trivy findings
+3. Include CVE count, severity breakdown, and initial findings in both documents
+4. This provides stakeholders with immediate scan results before deeper analysis begins
+
 ## Step 2: CVE Exploitability Analysis
 
 **⚠️ THIS IS THE MOST CRITICAL STEP ⚠️**
@@ -57,7 +93,7 @@ tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFile
 **Objective**: Conduct rigorous, context-specific analysis of each CVE to determine real-world exploitability. This is not about checking if a vulnerable library exists - it's about proving whether an attacker can actually exploit the vulnerability in the current application context.
 
 **MANDATORY DEPTH OF ANALYSIS**:
-This step requires the highest level of technical rigor. Each CVE must be analyzed with the thoroughness of a penetration test finding. Surface-level analysis is unacceptable and undermines the entire VEX document's credibility.
+This step requires the highest level of technical rigor. Each CVE must be analyzed with the thoroughness of a penetration test finding. Surface-level analysis is unacceptable and undermines the entire VEX document's credibility. Make use of your think tool
 
 **Process**:
 1. **CVE Research**: Fetch comprehensive details from OSV, security advisories, and exploit databases
@@ -113,6 +149,13 @@ Impact: [If exploitable]
 Confidence: [High/Medium/Low]
 ```
 
+**PROGRESSIVE DOCUMENTATION ACTION**:
+After completing CVE exploitability analysis:
+1. **Update** `summary.md` with CVE exploitability summary table and critical findings
+2. **Update** `yyyy-mm-dd-report.md` with detailed CVE analysis section for each vulnerability
+3. Include exploitability determinations, technical reasoning, and VEX status for each CVE
+4. This provides security teams with critical CVE analysis before OWASP review begins
+
 ## Step 3: OWASP Top 10 Analysis
 
 **Objective**: Comprehensive manual security review to identify critical vulnerabilities that exist beyond known CVEs. While Step 2 focuses on validating CVE exploitability, this step discovers application-specific security flaws that don't have CVE identifiers but may pose equal or greater risk.
@@ -163,9 +206,40 @@ Root Cause: [why vulnerability exists]
 Remediation: [immediate/short-term/long-term fixes]
 ```
 
+**PROGRESSIVE DOCUMENTATION ACTION**:
+After completing OWASP Top 10 analysis:
+1. **Update** `summary.md` with OWASP findings summary and updated vulnerability counts
+2. **Update** `yyyy-mm-dd-report.md` with comprehensive OWASP Top 10 analysis section
+3. **Create** initial `vex.json` document with CVE exploitability determinations from Step 2
+4. Include complete vulnerability breakdown and technical recommendations
+5. This provides complete security assessment before final documentation review
+
 ## Step 4: Documentation Generation
 
-**Objective**: Create three comprehensive deliverables that provide complete security assessment documentation.
+**Objective**: Finalize and polish the three comprehensive deliverables that have been progressively created throughout the analysis.
+
+**IMPORTANT**: By this step, all three documents should already exist with substantial content from previous steps. This step focuses on final review, completeness verification, and quality assurance rather than creating documents from scratch.
+
+### FINAL REVIEW AND COMPLETION TASKS:
+
+1. **Summary.md Review**:
+   - Verify executive summary accurately reflects all findings
+   - Ensure vulnerability counts and severity breakdowns are accurate
+   - Confirm critical issues section highlights most important findings
+   - Validate that technical concerns summary covers all major areas
+
+2. **Security Report Finalization**:
+   - Complete any missing CVE analysis details
+   - Finalize OWASP Top 10 section with all discovered vulnerabilities
+   - Ensure remediation strategies are complete and actionable
+   - Verify all summary tables are accurate and complete
+   - Add final technical recommendations section
+
+3. **VEX Document Completion**:
+   - Validate all CVE statements are technically accurate
+   - Ensure VEX status justifications align with exploitability analysis
+   - Verify product identifiers and vulnerability IDs are correct
+   - Confirm document follows OpenVEX specification
 
 ### THREE REQUIRED DELIVERABLES:
 
@@ -248,9 +322,11 @@ For each CVE found in Step 1 with analysis from Step 2:
   - `action_statement`: Remediation recommendations
   - `author`: Organization/team name
 
+Save the startment in `docs/security/reports/[report-name]/vex-working/[CVE-ID].json`
+
 #### 2. VEX Document Consolidation
 - **Tool**: Use vexdoc-mcp with `merge_vex_documents` function
-- **Input**: Array of all individual VEX statements created in step 1
+- **Input**: Each vex statement saved in `docs/security/reports/[report-name]/vex-working/*.json` folder
 - **Output**: Single comprehensive vex.json document
 
 ### Tool Usage Workflow:
@@ -260,6 +336,7 @@ For each CVE found in Step 1 with analysis from Step 2:
    - Collect all individual VEX statements
 2. Call `vexdoc-mcp.merge_vex_documents` with array of all statements
 3. Output: Final consolidated vex.json document
+4. Remove the ` docs/security/reports/[report-name]/vex-working` folder.
 
 ### Deliverables:
 - Individual VEX statements per CVE-product pair
@@ -456,37 +533,48 @@ Brief description of what was analyzed and the methodology used.
 - [ ] **ASK USER**: What is the product name being analyzed?
 - [ ] **ASK USER**: What scope/directories should be included?
 - [ ] Trivy MCP tools configured
-- [ ] Output directories created (`docs/security/[report-name]/`)
+- [ ] Output directories created (`docs/security/reports/[report-name]/`)
 
-**Step 1 - Trivy**: [ ] Filesystem scan, dependency analysis, configuration review, secrets detection
+**Step 1 - Trivy Scanning & Initial Documentation**:
+- [ ] Filesystem scan, dependency analysis, configuration review, secrets detection
+- [ ] **CREATE** `summary.md` with initial scan results and vulnerability counts
+- [ ] **CREATE** `yyyy-mm-dd-report.md` with detailed Trivy findings section
+- [ ] Provide stakeholders with immediate scan results summary
 
-**Step 2 - CVE Analysis** (CRITICAL - MOST IMPORTANT):
-- [ ] NVD research with comprehensive vulnerability details
+**Step 2 - CVE Analysis & Documentation Update** (CRITICAL - MOST IMPORTANT):
+- [ ] NVD research with comprehensive vulnerability details using osv-mcp
 - [ ] **DEEP CODE ANALYSIS**: Complete execution path tracing from entry points to vulnerable code
 - [ ] **REACHABILITY PROOF**: Concrete evidence that vulnerable code can be reached by attackers
 - [ ] **ATTACK VECTOR VALIDATION**: Realistic assessment of exploitation prerequisites
 - [ ] **ENVIRONMENTAL CONTEXT**: Full review of protective controls and mitigations
 - [ ] **EVIDENCE COLLECTION**: Code snippets, configurations, and technical proof for each determination
 - [ ] Exploitability determination with detailed technical justification
+- [ ] **UPDATE** `summary.md` with CVE exploitability summary table and critical findings
+- [ ] **UPDATE** `yyyy-mm-dd-report.md` with detailed CVE analysis section for each vulnerability
 
-**Step 3 - OWASP Review**: 
+**Step 3 - OWASP Review & VEX Creation**: 
 - [ ] **BEYOND CVE ANALYSIS**: Focus on discovering application-specific vulnerabilities
 - [ ] All 10 categories systematically reviewed for custom implementation flaws
 - [ ] Business logic vulnerabilities identified and documented
 - [ ] Configuration and deployment security issues assessed
 - [ ] Non-CVE vulnerabilities documented with same rigor as CVE analysis
+- [ ] **UPDATE** `summary.md` with OWASP findings summary and final vulnerability counts
+- [ ] **UPDATE** `yyyy-mm-dd-report.md` with comprehensive OWASP Top 10 analysis section
+- [ ] **CREATE** `vex.json` document with CVE exploitability determinations
 
-**Step 4 - Documentation Generation**: 
-- [ ] **SUMMARY.MD**: Technical summary created focusing on security findings and immediate concerns
-- [ ] **SECURITY REPORT**: Detailed technical report with complete vulnerability analysis and remediation steps
-- [ ] **VEX DOCUMENT**: OpenVEX-compliant JSON with CVE exploitability determinations
+**Step 4 - Final Documentation Review & Completion**: 
+- [ ] **FINALIZE** `summary.md` with complete executive summary and recommendations
+- [ ] **FINALIZE** `yyyy-mm-dd-report.md` with all technical details and remediation strategies
+- [ ] **FINALIZE** `vex.json` with validated CVE statements and technical justifications
 - [ ] All three documents stored in `docs/security/reports/[report-name]/` directory
+- [ ] Quality assurance review of all deliverables for completeness and accuracy
 
 **Final Verification**: 
 - [ ] **CVE EXPLOITABILITY**: Every CVE determination backed by concrete technical evidence
 - [ ] **OWASP COVERAGE**: Comprehensive review beyond known CVEs completed
-- [ ] **THREE DELIVERABLES**: Summary.md, detailed report, and VEX.json all completed
+- [ ] **PROGRESSIVE DOCUMENTATION**: All documents created and updated throughout analysis process
+- [ ] **THREE DELIVERABLES**: Summary.md, detailed report, and VEX.json all completed and polished
 - [ ] All VEX status justified with detailed technical reasoning
 - [ ] Documentation demonstrates depth of analysis performed
 - [ ] All files stored in correct directory structure: `docs/security/reports/[report-name]/`
-- [ ] Deliverables ready for security team decision-making
+- [ ] Deliverables ready for security team decision-making and include interim progress captured at each step

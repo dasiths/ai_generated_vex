@@ -4,7 +4,8 @@
             "type": "stdio",
             "command": "trivy",
             "args": [
-                "mcp"
+                "mcp",
+                "--debug"
             ],
             "cwd": "${workspaceFolder}"
         },
