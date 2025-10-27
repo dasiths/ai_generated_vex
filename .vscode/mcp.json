@@ -11,7 +11,7 @@
 		},
 		"vexdoc-mcp": {
 			"type": "stdio",
-			"command": "${workspaceFolder}/vexdoc-mcp-server",
+			"command": "vexdoc-mcp",
 			"args": []
 		},
 		"osv-mcp": {

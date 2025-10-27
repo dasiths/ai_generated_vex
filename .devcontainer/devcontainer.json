@@ -18,7 +18,7 @@
 			"userUid": "automatic",
 			"userGid": "automatic"
 		},
-		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+		"ghcr.io/devcontainers-extra/features/zsh-plugins:0": {
 			"plugins": "ssh-agent zsh-syntax-highlighting zsh-autosuggestions",
 			"omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting",
 			"username": "vscode"
@@ -30,10 +30,6 @@
 		},
 		"ghcr.io/devcontainers/features/go:1": {
 			"version": "1.24.4"
-		},
-		"ghcr.io/devcontainers/features/node:1": {
-			"nodeGypDependencies": true,
-			"version": "22"
 		}
 	},
 	// Configure tool-specific properties.
