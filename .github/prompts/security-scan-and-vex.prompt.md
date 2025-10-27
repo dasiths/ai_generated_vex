@@ -1,13 +1,13 @@
 ---
 mode: agent
-model: Claude Sonnet 4
+model: Claude Sonnet 4.5
 description: Security analysis and VEX generation workflow
-tools: ['codebase', 'think', 'searchResults', 'githubRepo', 'todos', 'editFiles', 'search', 'trivy-mcp', 'vexdoc-mcp', 'osv-mcp']
+tools: ['edit/createFile', 'edit/createDirectory', 'edit/editFiles', 'search', 'trivy-mcp/*', 'vexdoc-mcp/*', 'osv-mcp/*', 'executePrompt', 'usages', 'think', 'changes', 'fetch', 'githubRepo', 'todos']
 ---
 
 # Security Analysis and VEX Generation Workflow
 
-4-step workflow: automated scanning → **CRITICAL CVE exploitability analysis** → OWASP Top 10 review → VEX document generation.
+3-step workflow: automated scanning → **CRITICAL CVE exploitability analysis** → VEX document generation.
 
 **⚠️ CRITICAL**: You MUST start by asking the user for report name, product name, and scope before beginning any analysis or scanning.
 
@@ -48,8 +48,7 @@ Instead of waiting until the end, you MUST create and update documentation files
 ### Required Progressive Actions:
 1. **After Step 1 (Trivy Scan)**: Create initial summary.md with scan results and create the detailed report with Trivy findings
 2. **After Step 2 (CVE Analysis)**: Update both summary.md and detailed report with CVE exploitability analysis
-3. **After Step 3 (OWASP Review)**: Update both documents with OWASP findings and create initial VEX document
-4. **After Step 4 (Final Documentation)**: Finalize all three deliverables with complete analysis
+4. **After Step 3 (Final Documentation)**: Finalize all three deliverables with complete analysis
 
 ### Directory Structure Setup:
 Before starting any analysis, create the report directory structure:
@@ -156,65 +155,7 @@ After completing CVE exploitability analysis:
 3. Include exploitability determinations, technical reasoning, and VEX status for each CVE
 4. This provides security teams with critical CVE analysis before OWASP review begins
 
-## Step 3: OWASP Top 10 Analysis
-
-**Objective**: Comprehensive manual security review to identify critical vulnerabilities that exist beyond known CVEs. While Step 2 focuses on validating CVE exploitability, this step discovers application-specific security flaws that don't have CVE identifiers but may pose equal or greater risk.
-
-**STRATEGIC PURPOSE**:
-The OWASP Top 10 analysis serves a fundamentally different purpose than CVE analysis:
-
-- **CVE Analysis**: Validates whether known, catalogued vulnerabilities are exploitable
-- **OWASP Analysis**: Discovers unknown, application-specific vulnerabilities through systematic security review
-
-**WHY OWASP TOP 10 IS ESSENTIAL**:
-1. **Coverage Gaps**: CVE databases don't capture business logic flaws, design vulnerabilities, or implementation-specific issues
-2. **Custom Code Risks**: Application-specific vulnerabilities often pose higher risk than dependency CVEs
-3. **Context-Specific Issues**: Security flaws that only manifest in particular deployment or usage contexts
-4. **Emerging Threats**: New attack patterns not yet catalogued in CVE databases
-5. **Configuration Vulnerabilities**: Deployment and configuration issues that create exploitable conditions
-
-**COMPREHENSIVE REVIEW APPROACH**:
-Each OWASP category must be analyzed with the same rigor as CVE exploitability analysis. This is not a compliance checklist - it's active threat hunting within the application.
-
-**Categories to Review**:
-- **A01**: Broken Access Control (auth/authz, session management, IDOR, privilege escalation)
-- **A02**: Cryptographic Failures (weak algorithms, key management, random generation, data protection)
-- **A03**: Injection (SQL, command, LDAP, XPath, NoSQL, template, code injection)
-- **A04**: Insecure Design (threat modeling, security patterns, business logic flaws)
-- **A05**: Security Misconfiguration (defaults, error handling, headers, hardening)
-- **A06**: Vulnerable Components (cross-reference with Trivy findings, update policies)
-- **A07**: Authentication Failures (passwords, MFA, session mgmt, bypass techniques)
-- **A08**: Data Integrity Failures (serialization, updates, CI/CD security, supply chain)
-- **A09**: Logging/Monitoring Failures (coverage, sensitive data exposure, detection gaps)
-- **A10**: SSRF (external services, URL validation, network controls, cloud metadata access)
-
-**CRITICAL FOCUS AREAS**:
-- **Business Logic Vulnerabilities**: Flaws in application workflow that can be abused
-- **Authorization Bypass**: Ways to access functionality or data without proper permissions
-- **Data Exposure**: Sensitive information disclosure through various attack vectors
-- **Configuration Weaknesses**: Deployment settings that create attack opportunities
-- **Custom Implementation Flaws**: Security issues in application-specific code
-
-**Documentation per Vulnerability**:
-```
-Classification: [OWASP category]
-Severity: [Critical/High/Medium/Low]
-Location: [files, functions, lines]
-Description: [technical details]
-Attack Scenario: [step-by-step exploitation]
-Root Cause: [why vulnerability exists]
-Remediation: [immediate/short-term/long-term fixes]
-```
-
-**PROGRESSIVE DOCUMENTATION ACTION**:
-After completing OWASP Top 10 analysis:
-1. **Update** `summary.md` with OWASP findings summary and updated vulnerability counts
-2. **Update** `yyyy-mm-dd-report.md` with comprehensive OWASP Top 10 analysis section
-3. **Create** initial `vex.json` document with CVE exploitability determinations from Step 2
-4. Include complete vulnerability breakdown and technical recommendations
-5. This provides complete security assessment before final documentation review
-
-## Step 4: Documentation Generation
+## Step 3: Documentation Generation
 
 **Objective**: Finalize and polish the three comprehensive deliverables that have been progressively created throughout the analysis.
 
@@ -273,7 +214,6 @@ All three files must be stored in: `docs/security/reports/[report-name]/`
 - **Total Vulnerabilities Found**: [count]
 - **Critical**: [count] | **High**: [count] | **Medium**: [count] | **Low**: [count]
 - **CVEs Analyzed**: [count] ([exploitable-count] exploitable, [not-exploitable-count] not exploitable)
-- **OWASP Top 10 Issues**: [count]
 
 ## Critical Issues Requiring Immediate Attention
 1. **[Critical Issue 1]** - [location/component]
@@ -284,7 +224,6 @@ All three files must be stored in: `docs/security/reports/[report-name]/`
 | Category | Critical | High | Medium | Low | Total |
 |----------|----------|------|--------|-----|-------|
 | CVE Vulnerabilities | [count] | [count] | [count] | [count] | [count] |
-| OWASP Top 10 Issues | [count] | [count] | [count] | [count] | [count] |
 | **TOTALS** | **[count]** | **[count]** | **[count]** | **[count]** | **[count]** |
 
 ## CVE Exploitability Summary
@@ -318,11 +257,11 @@ For each CVE found in Step 1 with analysis from Step 2:
   - `status`: Determined from Step 2 analysis (not_affected|affected|fixed|under_investigation)
 - **Optional inputs** (based on Step 2 analysis):
   - `justification`: Required if status is "not_affected"
-  - `impact_statement`: Use exploitability analysis findings
+  - `impact_statement`: impact statement should only be set when not using status "affected"
   - `action_statement`: Remediation recommendations
   - `author`: Organization/team name
 
-Save the startment in `docs/security/reports/[report-name]/vex-working/[CVE-ID].json`
+Save the statement in `docs/security/reports/[report-name]/vex-working/[CVE-ID].json`
 
 #### 2. VEX Document Consolidation
 - **Tool**: Use vexdoc-mcp with `merge_vex_documents` function
@@ -368,7 +307,6 @@ Brief description of what was analyzed and the methodology used.
 - **Total Vulnerabilities**: [count]
 - **Critical**: [count] | **High**: [count] | **Medium**: [count] | **Low**: [count]
 - **CVEs Identified**: [count] ([exploitable-count] exploitable)
-- **OWASP Top 10 Issues**: [count]
 
 ### Immediate Security Concerns
 1. [Most critical vulnerability requiring immediate attention]
@@ -497,11 +435,6 @@ Brief description of what was analyzed and the methodology used.
 | CVE-YYYY-NNNN | Critical | [component] | affected | planned |
 | CVE-YYYY-NNNN | High | [component] | not_affected | n/a |
 
-### OWASP Top 10 Summary
-| ID | Category | Severity | Status | Priority |
-|----|----------|----------|--------|----------|
-| VULN-001 | A03 - Injection | High | Open | P1 |
-| VULN-002 | A01 - Access Control | Medium | In Progress | P2 |
 
 ---
 
@@ -542,6 +475,19 @@ Brief description of what was analyzed and the methodology used.
 - [ ] Provide stakeholders with immediate scan results summary
 
 **Step 2 - CVE Analysis & Documentation Update** (CRITICAL - MOST IMPORTANT):
+
+### Dynamic CVE Task Management:
+1. **After Step 1 Trivy scan**, extract all CVE-IDs from scan results
+2. **Add individual CVE analysis tasks** to the todo list using `manage_todo_list` tool
+3. **For each CVE-ID discovered**, create a dedicated task: "Analyze [CVE-ID] exploitability"
+4. **Work through each CVE task systematically**, marking as in-progress → completed
+
+### For Each Identified CVE (repeat this process for every CVE found):
+
+**IMPORTANT**: Before analyzing each CVE, mark the corresponding CVE task as "in-progress" in the todo list.
+
+#### CVE-[YYYY-NNNNN] Analysis Process:
+- [ ] **Mark CVE task as in-progress** in todo list
 - [ ] NVD research with comprehensive vulnerability details using osv-mcp
 - [ ] **DEEP CODE ANALYSIS**: Complete execution path tracing from entry points to vulnerable code
 - [ ] **REACHABILITY PROOF**: Concrete evidence that vulnerable code can be reached by attackers
@@ -549,17 +495,21 @@ Brief description of what was analyzed and the methodology used.
 - [ ] **ENVIRONMENTAL CONTEXT**: Full review of protective controls and mitigations
 - [ ] **EVIDENCE COLLECTION**: Code snippets, configurations, and technical proof for each determination
 - [ ] Exploitability determination with detailed technical justification
-- [ ] **UPDATE** `summary.md` with CVE exploitability summary table and critical findings
-- [ ] **UPDATE** `yyyy-mm-dd-report.md` with detailed CVE analysis section for each vulnerability
+- [ ] **UPDATE** `summary.md` with this CVE's exploitability summary and critical findings
+- [ ] **UPDATE** `yyyy-mm-dd-report.md` with detailed analysis section for this CVE
+- [ ] **Mark CVE task as completed** in todo list and move to next CVE
 
-**Step 3 - OWASP Review & VEX Creation**: 
-- [ ] **BEYOND CVE ANALYSIS**: Focus on discovering application-specific vulnerabilities
-- [ ] All 10 categories systematically reviewed for custom implementation flaws
-- [ ] Business logic vulnerabilities identified and documented
-- [ ] Configuration and deployment security issues assessed
-- [ ] Non-CVE vulnerabilities documented with same rigor as CVE analysis
-- [ ] **UPDATE** `summary.md` with OWASP findings summary and final vulnerability counts
-- [ ] **UPDATE** `yyyy-mm-dd-report.md` with comprehensive OWASP Top 10 analysis section
+---
+*Repeat above checklist for each CVE identified in Step 1*
+---
+
+### Final Documentation (after all CVEs analyzed):
+- [ ] **COMPILE** final CVE exploitability summary table in `summary.md`
+- [ ] **REVIEW** all CVE sections in `yyyy-mm-dd-report.md` for completeness
+- [ ] **VERIFY** all CVEs have been thoroughly analyzed and documented
+
+
+**Step 3 - VEX Creation**: 
 - [ ] **CREATE** `vex.json` document with CVE exploitability determinations
 
 **Step 4 - Final Documentation Review & Completion**: 
@@ -571,7 +521,6 @@ Brief description of what was analyzed and the methodology used.
 
 **Final Verification**: 
 - [ ] **CVE EXPLOITABILITY**: Every CVE determination backed by concrete technical evidence
-- [ ] **OWASP COVERAGE**: Comprehensive review beyond known CVEs completed
 - [ ] **PROGRESSIVE DOCUMENTATION**: All documents created and updated throughout analysis process
 - [ ] **THREE DELIVERABLES**: Summary.md, detailed report, and VEX.json all completed and polished
 - [ ] All VEX status justified with detailed technical reasoning

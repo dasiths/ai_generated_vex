@@ -1,25 +1,23 @@
 {
-    "servers": {
-        "trivy-mcp": {
-            "type": "stdio",
-            "command": "trivy",
-            "args": [
-                "mcp",
-                "--debug"
-            ],
-            "cwd": "${workspaceFolder}"
-        },
-        "vexdoc-mcp": {
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "vexdoc-mcp"
-            ],
-            "cwd": "${workspaceFolder}"
-        },
-        "osv-mcp": {
-            "type": "http",
-            "url": "http://localhost:3001/mcp"
-        }
-    }
+	"servers": {
+		"trivy-mcp": {
+			"type": "stdio",
+			"command": "trivy",
+			"args": [
+				"mcp",
+				"--debug"
+			],
+			"cwd": "${workspaceFolder}"
+		},
+		"vexdoc-mcp": {
+			"type": "stdio",
+			"command": "${workspaceFolder}/vexdoc-mcp-server",
+			"args": []
+		},
+		"osv-mcp": {
+			"type": "http",
+			"url": "http://localhost:3001/mcp"
+		}
+	},
+	"inputs": []
 }
